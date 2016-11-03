@@ -1,0 +1,33 @@
+PODS:
+  - Game (1.0):
+    - SwiftTools
+  - iMessagePack (1.0):
+    - SwiftTools
+  - SwiftTools (1.1.9)
+
+DEPENDENCIES:
+  - Game (from `~/Documents/projects/Game`)
+  - iMessagePack (from `~/Documents/projects/iMessagePack`)
+  - SwiftTools (from `https://github.com/jwitcig/SwiftTools`)
+
+EXTERNAL SOURCES:
+  Game:
+    :path: "~/Documents/projects/Game"
+  iMessagePack:
+    :path: "~/Documents/projects/iMessagePack"
+  SwiftTools:
+    :git: https://github.com/jwitcig/SwiftTools
+
+CHECKOUT OPTIONS:
+  SwiftTools:
+    :commit: 2c349b675dde1ace1b0ac53109ab6392385e7f07
+    :git: https://github.com/jwitcig/SwiftTools
+
+SPEC CHECKSUMS:
+  Game: 73f45343e9b84475b17a0bd7be1ae4f974631a9e
+  iMessagePack: 1559419b89aabca014624db473370e0751cf2afa
+  SwiftTools: d68bd1d6483450503f2f43c3a7d3c2f1c18375eb
+
+PODFILE CHECKSUM: 8b3db7891a8dd4f2b51a7dcacec988385b321d70
+
+COCOAPODS: 1.1.1

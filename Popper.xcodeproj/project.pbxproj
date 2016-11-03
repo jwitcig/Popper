@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E572C0EDEF7A778FB6E6EE2 /* Pods_MessagesExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBAE550BE91399D684FF6E1 /* Pods_MessagesExtension.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8B0335021DC01B9D00DDAD81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335011DC01B9D00DDAD81 /* Assets.xcassets */; };
 		8B0335091DC01B9D00DDAD81 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8B0335081DC01B9D00DDAD81 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8B03350E1DC01B9D00DDAD81 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B03350D1DC01B9D00DDAD81 /* Messages.framework */; };
 		8B0335111DC01B9D00DDAD81 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */; };
 		8B0335141DC01B9D00DDAD81 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335121DC01B9D00DDAD81 /* MainInterface.storyboard */; };
 		8B0335161DC01B9D00DDAD81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335151DC01B9D00DDAD81 /* Assets.xcassets */; };
+		8B0335221DC021CE00DDAD81 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335211DC021CE00DDAD81 /* image.jpg */; };
+		8B0335241DC0560800DDAD81 /* TapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0335231DC0560800DDAD81 /* TapItem.swift */; };
+		8B26663F1DCACC8F004B953C /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B26663D1DCACC8F004B953C /* GameViewController.xib */; };
+		8B447F661DC15FF400C46BCD /* Popper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B447F651DC15FF400C46BCD /* Popper.swift */; };
+		8B447F6A1DC16C9900C46BCD /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B447F691DC16C9900C46BCD /* ActionView.swift */; };
+		8B47E1B01DC1BA4400F53FD8 /* ActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B47E1AF1DC1BA4400F53FD8 /* ActionView.xib */; };
+		8B551ED91DC2EE8A00A81BAA /* ScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B551ED81DC2EE8A00A81BAA /* ScoreView.xib */; };
+		8B551EDB1DC2EE9200A81BAA /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B551EDA1DC2EE9200A81BAA /* ScoreView.swift */; };
+		8BB25FEA1DC280CD00328342 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8BB25FE71DC280CD00328342 /* Actions.sks */; };
+		8BB25FEB1DC280CD00328342 /* PopperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8BB25FE81DC280CD00328342 /* PopperScene.sks */; };
+		8BB25FEC1DC280CD00328342 /* PopperScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB25FE91DC280CD00328342 /* PopperScene.swift */; };
+		8BB25FEE1DC28A7800328342 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB25FED1DC28A7800328342 /* GameViewController.swift */; };
+		BBE8CAB6B0B241692CB83FAA /* Pods_Popper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299DA464E3D6406BA36E685B /* Pods_Popper.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +54,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		299DA464E3D6406BA36E685B /* Pods_Popper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Popper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B1B9A83E15B26F76AF70B8C /* Pods-Popper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Popper/Pods-Popper.debug.xcconfig"; sourceTree = "<group>"; };
+		49A156056142A9DACB04D63B /* Pods-Popper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Popper/Pods-Popper.release.xcconfig"; sourceTree = "<group>"; };
 		8B0334FE1DC01B9D00DDAD81 /* Popper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0335011DC01B9D00DDAD81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B0335031DC01B9D00DDAD81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +66,22 @@
 		8B0335131DC01B9D00DDAD81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		8B0335151DC01B9D00DDAD81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B0335171DC01B9D00DDAD81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B0335211DC021CE00DDAD81 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
+		8B0335231DC0560800DDAD81 /* TapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapItem.swift; sourceTree = "<group>"; };
+		8B26663D1DCACC8F004B953C /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		8B447F651DC15FF400C46BCD /* Popper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popper.swift; sourceTree = "<group>"; };
+		8B447F691DC16C9900C46BCD /* ActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
+		8B47E1AF1DC1BA4400F53FD8 /* ActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionView.xib; sourceTree = "<group>"; };
+		8B551ED81DC2EE8A00A81BAA /* ScoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreView.xib; sourceTree = "<group>"; };
+		8B551EDA1DC2EE9200A81BAA /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		8B5F7B5B1DC40E5D001D78CF /* SwiftTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftTools.framework; path = "../../../Library/Developer/Xcode/DerivedData/Popper-chkbywmwcljqbiexxmscsftmzyzj/Build/Products/Debug-iphonesimulator/SwiftTools/SwiftTools.framework"; sourceTree = "<group>"; };
+		8BB25FE71DC280CD00328342 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Actions.sks; path = ../Actions.sks; sourceTree = "<group>"; };
+		8BB25FE81DC280CD00328342 /* PopperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PopperScene.sks; path = ../PopperScene.sks; sourceTree = "<group>"; };
+		8BB25FE91DC280CD00328342 /* PopperScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopperScene.swift; path = ../PopperScene.swift; sourceTree = "<group>"; };
+		8BB25FED1DC28A7800328342 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		8C4232D93C665F267B7E89F4 /* Pods-MessagesExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagesExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension.release.xcconfig"; sourceTree = "<group>"; };
+		EBBAE550BE91399D684FF6E1 /* Pods_MessagesExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessagesExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFB99A6235D4366BCC5BA6E9 /* Pods-MessagesExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagesExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +90,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B03350E1DC01B9D00DDAD81 /* Messages.framework in Frameworks */,
+				5E572C0EDEF7A778FB6E6EE2 /* Pods_MessagesExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8B07399B10762F22ABC5F1E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBE8CAB6B0B241692CB83FAA /* Pods_Popper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +112,7 @@
 				8B03350F1DC01B9D00DDAD81 /* MessagesExtension */,
 				8B03350C1DC01B9D00DDAD81 /* Frameworks */,
 				8B0334FF1DC01B9D00DDAD81 /* Products */,
+				C932B20A184CAAA4B551EBAF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,7 +137,10 @@
 		8B03350C1DC01B9D00DDAD81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8B5F7B5B1DC40E5D001D78CF /* SwiftTools.framework */,
 				8B03350D1DC01B9D00DDAD81 /* Messages.framework */,
+				EBBAE550BE91399D684FF6E1 /* Pods_MessagesExtension.framework */,
+				299DA464E3D6406BA36E685B /* Pods_Popper.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,11 +149,50 @@
 			isa = PBXGroup;
 			children = (
 				8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */,
+				8BB25FED1DC28A7800328342 /* GameViewController.swift */,
+				8B26663D1DCACC8F004B953C /* GameViewController.xib */,
+				8B447F651DC15FF400C46BCD /* Popper.swift */,
+				8B0335231DC0560800DDAD81 /* TapItem.swift */,
+				8B0335211DC021CE00DDAD81 /* image.jpg */,
 				8B0335121DC01B9D00DDAD81 /* MainInterface.storyboard */,
+				8B551EDD1DC2EEA600A81BAA /* ActionView */,
+				8B551EDC1DC2EE9D00A81BAA /* ScoreView */,
+				8BB25FE71DC280CD00328342 /* Actions.sks */,
+				8BB25FE81DC280CD00328342 /* PopperScene.sks */,
+				8BB25FE91DC280CD00328342 /* PopperScene.swift */,
 				8B0335151DC01B9D00DDAD81 /* Assets.xcassets */,
 				8B0335171DC01B9D00DDAD81 /* Info.plist */,
 			);
 			path = MessagesExtension;
+			sourceTree = "<group>";
+		};
+		8B551EDC1DC2EE9D00A81BAA /* ScoreView */ = {
+			isa = PBXGroup;
+			children = (
+				8B551EDA1DC2EE9200A81BAA /* ScoreView.swift */,
+				8B551ED81DC2EE8A00A81BAA /* ScoreView.xib */,
+			);
+			name = ScoreView;
+			sourceTree = "<group>";
+		};
+		8B551EDD1DC2EEA600A81BAA /* ActionView */ = {
+			isa = PBXGroup;
+			children = (
+				8B447F691DC16C9900C46BCD /* ActionView.swift */,
+				8B47E1AF1DC1BA4400F53FD8 /* ActionView.xib */,
+			);
+			name = ActionView;
+			sourceTree = "<group>";
+		};
+		C932B20A184CAAA4B551EBAF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EFB99A6235D4366BCC5BA6E9 /* Pods-MessagesExtension.debug.xcconfig */,
+				8C4232D93C665F267B7E89F4 /* Pods-MessagesExtension.release.xcconfig */,
+				2B1B9A83E15B26F76AF70B8C /* Pods-Popper.debug.xcconfig */,
+				49A156056142A9DACB04D63B /* Pods-Popper.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,8 +202,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B03351E1DC01B9D00DDAD81 /* Build configuration list for PBXNativeTarget "Popper" */;
 			buildPhases = (
+				264D51F1EC126A8021A3FF34 /* [CP] Check Pods Manifest.lock */,
 				8B0334FC1DC01B9D00DDAD81 /* Resources */,
 				8B03351D1DC01B9D00DDAD81 /* Embed App Extensions */,
+				D8B07399B10762F22ABC5F1E /* Frameworks */,
+				ECEE1F9F8147D1C854D6ACF0 /* [CP] Copy Pods Resources */,
+				B4D4F653B1733D9F0F9A9075 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -134,9 +223,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B03351A1DC01B9D00DDAD81 /* Build configuration list for PBXNativeTarget "MessagesExtension" */;
 			buildPhases = (
+				5720EB2668744825E53FBCB2 /* [CP] Check Pods Manifest.lock */,
 				8B0335041DC01B9D00DDAD81 /* Sources */,
 				8B0335051DC01B9D00DDAD81 /* Frameworks */,
 				8B0335061DC01B9D00DDAD81 /* Resources */,
+				FA2DCE599221A61805A06ED1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -154,7 +245,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Jonah Witcig";
 				TargetAttributes = {
 					8B0334FD1DC01B9D00DDAD81 = {
@@ -201,12 +292,96 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B47E1B01DC1BA4400F53FD8 /* ActionView.xib in Resources */,
 				8B0335161DC01B9D00DDAD81 /* Assets.xcassets in Resources */,
+				8B26663F1DCACC8F004B953C /* GameViewController.xib in Resources */,
 				8B0335141DC01B9D00DDAD81 /* MainInterface.storyboard in Resources */,
+				8B551ED91DC2EE8A00A81BAA /* ScoreView.xib in Resources */,
+				8B0335221DC021CE00DDAD81 /* image.jpg in Resources */,
+				8BB25FEB1DC280CD00328342 /* PopperScene.sks in Resources */,
+				8BB25FEA1DC280CD00328342 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		264D51F1EC126A8021A3FF34 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5720EB2668744825E53FBCB2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4D4F653B1733D9F0F9A9075 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Popper/Pods-Popper-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECEE1F9F8147D1C854D6ACF0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Popper/Pods-Popper-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA2DCE599221A61805A06ED1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B0335041DC01B9D00DDAD81 /* Sources */ = {
@@ -214,6 +389,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B0335111DC01B9D00DDAD81 /* MessagesViewController.swift in Sources */,
+				8B551EDB1DC2EE9200A81BAA /* ScoreView.swift in Sources */,
+				8B0335241DC0560800DDAD81 /* TapItem.swift in Sources */,
+				8BB25FEE1DC28A7800328342 /* GameViewController.swift in Sources */,
+				8B447F661DC15FF400C46BCD /* Popper.swift in Sources */,
+				8BB25FEC1DC280CD00328342 /* PopperScene.swift in Sources */,
+				8B447F6A1DC16C9900C46BCD /* ActionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +438,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -306,6 +488,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -332,6 +515,7 @@
 		};
 		8B03351B1DC01B9D00DDAD81 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFB99A6235D4366BCC5BA6E9 /* Pods-MessagesExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = 349WFX4WJR;
@@ -346,6 +530,7 @@
 		};
 		8B03351C1DC01B9D00DDAD81 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C4232D93C665F267B7E89F4 /* Pods-MessagesExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = 349WFX4WJR;
@@ -360,11 +545,13 @@
 		};
 		8B03351F1DC01B9D00DDAD81 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B1B9A83E15B26F76AF70B8C /* Pods-Popper.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
 				INFOPLIST_FILE = Popper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jwitapps.Popper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -374,11 +561,13 @@
 		};
 		8B0335201DC01B9D00DDAD81 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49A156056142A9DACB04D63B /* Pods-Popper.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
 				INFOPLIST_FILE = Popper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jwitapps.Popper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -405,6 +594,7 @@
 				8B03351C1DC01B9D00DDAD81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8B03351E1DC01B9D00DDAD81 /* Build configuration list for PBXNativeTarget "Popper" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +603,7 @@
 				8B0335201DC01B9D00DDAD81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
