@@ -8,8 +8,8 @@ target 'MessagesExtension' do
   use_frameworks!
 
   pod 'SwiftTools', :git => "https://github.com/jwitcig/SwiftTools"
-  pod 'iMessagePack', :path => '~/Documents/projects/iMessagePack'
-  pod 'Game', :path => '~/Documents/projects/Game'
+  pod 'iMessageTools', :path => '~/Documents/projects/iMessageTools'
+  pod 'Game', :path => '~/Documents/projects/iOS-Game'
 
   post_install do |installer|
       installer.pods_project.targets.each do |target|

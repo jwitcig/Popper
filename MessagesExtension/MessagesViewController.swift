@@ -11,7 +11,7 @@ import Messages
 import UIKit
 
 import Game
-import iMessagePack
+import iMessageTools
 import SwiftTools
 
 infix operator |

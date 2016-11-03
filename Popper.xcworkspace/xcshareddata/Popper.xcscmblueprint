@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F523B14BB7A78D14693C70D37FB71ED21346DE69",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767" : 9223372036854775807,
+    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : 9223372036854775807,
+    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "491665C2-BAF8-4846-8382-4C279556CBAF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767" : "iOS-Game\/",
+    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : "Popper\/",
+    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : "iMessageTools\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Popper",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Popper.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/iMessageTools.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4182E699B896459DE97CA7637FEAEAF78E9F46CA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/iOS-Game.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/Popper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F523B14BB7A78D14693C70D37FB71ED21346DE69"
+    }
+  ]
+}
