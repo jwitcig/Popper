@@ -1,9 +1,9 @@
 PODS:
   - Game (1.0):
-    - SwiftTools
+    - SwiftTools (= 1.1.10)
   - iMessageTools (1.0):
     - SwiftTools
-  - SwiftTools (1.1.9)
+  - SwiftTools (1.1.10)
 
 DEPENDENCIES:
   - Game (from `~/Documents/projects/iOS-Game`)
@@ -12,21 +12,21 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Game:
-    :path: ~/Documents/projects/iOS-Game
+    :path: "~/Documents/projects/iOS-Game"
   iMessageTools:
-    :path: ~/Documents/projects/iMessageTools
+    :path: "~/Documents/projects/iMessageTools"
   SwiftTools:
     :git: https://github.com/jwitcig/SwiftTools
 
 CHECKOUT OPTIONS:
   SwiftTools:
-    :commit: 2c349b675dde1ace1b0ac53109ab6392385e7f07
+    :commit: b36f1576f9733244dc27bb5f9c5b7793ad8c9fcb
     :git: https://github.com/jwitcig/SwiftTools
 
 SPEC CHECKSUMS:
-  Game: 73f45343e9b84475b17a0bd7be1ae4f974631a9e
+  Game: 22d25af91eebf39a620bea5308d4f2dabfb4a81e
   iMessageTools: 1ce60ab61f777f5ed831f52605d28b6507bc9e0f
-  SwiftTools: d68bd1d6483450503f2f43c3a7d3c2f1c18375eb
+  SwiftTools: de3df762bfd6a9fd1137594479f4a076a9c5c8f3
 
 PODFILE CHECKSUM: 66d2d6a74ea3ce96e1ef048f07fd3ccdc9799112
 

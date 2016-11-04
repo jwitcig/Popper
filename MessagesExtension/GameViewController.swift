@@ -30,7 +30,7 @@ class GameViewController<GameType: Game>: MSMessagesAppViewController {
     
     let scoreView = ScoreView.create()
     
-    var opponentsSession: GameSession<GameType>?
+    var opponentsSession: Session<GameType>?
     
     var sceneView: SKView! {
         return view as! SKView
