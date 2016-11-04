@@ -16,14 +16,12 @@ import SwiftTools
 
 infix operator |
 
-class MessagesViewController: MSMessagesAppViewController, iMessageCycle {
+class MessagesViewController: MSMessagesAppViewController, MessageSender {
     fileprivate var gameController: UIViewController?
     
     var isAwaitingResponse = false
     
     var messageCancelled = false
-
-    // MARK: - Conversation Handling
     
     override func willBecomeActive(with conversation: MSConversation) {
         if let message = conversation.selectedMessage {
@@ -41,7 +39,7 @@ class MessagesViewController: MSMessagesAppViewController, iMessageCycle {
     }
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
-        guard let reader = Reader(message: message) else { return }
+        guard let _ = Reader(message: message) else { return }
     }
     
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
@@ -81,9 +79,8 @@ class MessagesViewController: MSMessagesAppViewController, iMessageCycle {
             return
         }
         
-        guard let reader = Reader(message: message) else { return }
+        guard let _ = Reader(message: message) else { return }
         
-        //  let session = iMSGGameSession<GameType>.parse(reader: reader)
         
         isAwaitingResponse = false
         
@@ -119,6 +116,6 @@ extension MessagesViewController {
     }
     
     fileprivate func createGameController<T: Game>(ofType _: T.Type, fromMessage parser: Reader? = nil) -> GameViewController<T> {
-        return GameViewController<T>.create(fromMessage: parser)
+        return GameViewController<T>.create(fromMessage: parser, messageSender: self)
     }
 }

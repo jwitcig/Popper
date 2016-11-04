@@ -6,10 +6,12 @@
 //  Copyright © 2016 Jonah Witcig. All rights reserved.
 //
 
-import SpriteKit
 import GameplayKit
+import Messages
+import SpriteKit
 
 import Game
+import iMessageTools
 import SwiftTools
 
 infix operator |
@@ -29,7 +31,7 @@ class PopperScene: SKScene, GameScene {
     var popper: Popper {
         return game as! Popper
     }
-
+    
     private var tapItems = [TapItem]()
     
     private var leftToDisplay = 0 {
@@ -39,20 +41,26 @@ class PopperScene: SKScene, GameScene {
         didSet { (leftToPop == 0) | popper.finish }
     }
     
-    init(initials: GameInitData<Popper>, previousSession: GameSession<Popper>?) {
-        self.leftToDisplay = initials.desiredShapeQuantity
-        self.leftToPop = initials.desiredShapeQuantity
+    let messageSender: MessageSender
+    
+    init(initial providedInitial: InitialData<Popper>?, previousSession: Session<Popper>?, delegate: GameCycleDelegate, messageSender: MessageSender) {
+        let initial = providedInitial ?? previousSession?.initial ?? InitialData<Popper>.random()
         
-        let padding = Padding(left: 10, right: 60, top: 100, bottom: 90)
+        self.leftToDisplay = initial.desiredShapeQuantity
+        self.leftToPop = initial.desiredShapeQuantity
 
-        let lifeCycle = LifeCycle(started: nil, finished: nil)
-        let gameCycle = GameCycle(started: nil, finished: nil, generateSession: { return GameSession<Popper>() })
-
+        self.messageSender = messageSender
+        
         super.init(size: UIScreen.size)
-
-        self.game = Popper(previousSession: previousSession, createShape: addShape, padding: padding, cycle: lifeCycle, gameCycle: gameCycle)
-        
         self.scaleMode = .aspectFill
+        
+        let lifeCycle = SessionCycle(started: nil, finished: delegate.finished, generateSession: gatherSessionData)
+        
+        self.game = Popper(previousSession: previousSession,
+                                   initial: initial,
+                               createShape: addShape,
+                                   padding: Padding(left: 10, right: 60, top: 100, bottom: 90),
+                                     cycle: lifeCycle)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -98,6 +106,13 @@ class PopperScene: SKScene, GameScene {
         tapItems.append(tapItem)
         
         leftToDisplay -= leftToDisplay > 0 ? 1 : 0
+    }
+    
+    func gatherSessionData() -> Session<Popper> {
+        return Session<Popper>(instance: InstanceData<Popper>.create(score: popper.lifeCycle.elapsedTime),
+                                initial: InitialData<Popper>.create(seed: popper.initial.seed,
+                                                   desiredShapedQuantity: popper.initial.desiredShapeQuantity),
+                         messageSession: nil)
     }
     
     override func update(_ currentTime: TimeInterval) {

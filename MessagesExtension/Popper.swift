@@ -21,10 +21,7 @@ final class Popper: Game {
     
     static let GameName = "Popper"
     
-    let desiredShapeQuantity: Int
-    
-    let seed: Int
-    let randomSource: GKRandomSource
+    let initial: InitialData<Popper>
     
     let padding: Padding?
     
@@ -33,25 +30,20 @@ final class Popper: Game {
     var createItemTimer: Timer?
     
     let lifeCycle: LifeCycle
-    let gameCycle: SessionCycle<Popper>
     
     init(previousSession: Session<Popper>?,
+                 initial: InitialData<Popper>?,
              createShape: @escaping (CGPoint, CGFloat)->Void,
                  padding: Padding?,
-                   cycle: LifeCycle,
-               gameCycle: SessionCycle<Popper>) {
-                
-        self.desiredShapeQuantity = previousSession?.initial.desiredShapeQuantity ?? 3
-    
-        self.seed = previousSession?.initial.seed ?? GKRandomDistribution(lowestValue: 0, highestValue: 10000000).nextInt()
-        self.randomSource = GKLinearCongruentialRandomSource(seed: UInt64(seed))
+                   cycle: LifeCycle) {
+        
+        self.initial = initial ?? InitialData<Popper>.random()
         
         self.padding = padding
         
         self.createShape = createShape
         
         self.lifeCycle = cycle
-        self.gameCycle = gameCycle
     }
 
     func start() {
@@ -62,6 +54,8 @@ final class Popper: Game {
         
         let yLow = padding?.top ?? 0
         let yHigh = Int(UIScreen.size.height) - (padding?.bottom ?? 0)
+        
+        let randomSource = GKLinearCongruentialRandomSource(seed: UInt64(initial.seed))
 
         let spread = RandomPointGenerator(x: (xLow, xHigh), y: (yLow, yHigh), source: randomSource)
         createItemTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
@@ -93,27 +87,48 @@ extension Session where SessionType: Popper {
 }
 
 extension InstanceData where SessionType: Popper {
-    var score: Int { return dictionary["instance-score"]!.int! }
+    var score: Double { return dictionary["instance-score"]!.double! }
     
-    init?(dictionary: [String: String]) {
-        guard let _ = dictionary["instance-score"]?.int else { return nil }
+    private init(dictionary: [String: String]) {
         self.dictionary = dictionary
+    }
+    
+    static func create(dictionary: [String: String]) -> InstanceData<Popper>? {
+        guard let _ = dictionary["instance-score"]?.double else { return nil }
+        return InstanceData<Popper>(dictionary: dictionary)
+    }
+    
+    static func create(score: Double) -> InstanceData<Popper> {
+        return InstanceData<Popper>(dictionary: [
+            "instance-score": score.string!,
+        ])
     }
 }
 
 extension InitialData where SessionType: Popper {
-    var seed: Int { return dictionary["instance-seed"]!.int! }
-    var desiredShapeQuantity: Int { return dictionary["instance-desiredShapeQuantity"]!.int! }
+    var seed: Int { return dictionary["initial-seed"]!.int! }
+    var desiredShapeQuantity: Int { return dictionary["initial-desiredShapeQuantity"]!.int! }
     
-    init?(dictionary: [String: String]) {
-        guard let _ = dictionary["instance-seed"]?.int else { return nil }
-        guard let _ = dictionary["instance-desiredShapeQuantity"]!.int else { return nil }
+    private init(dictionary: [String: String]) {
         self.dictionary = dictionary
+    }
+    
+    static func create(dictionary: [String: String]) -> InitialData<Popper>? {
+        guard let _ = dictionary["initial-seed"]?.int else { return nil }
+        guard let _ = dictionary["initial-desiredShapeQuantity"]!.int else { return nil }
+        return InitialData<Popper>(dictionary: dictionary)
+    }
+    
+    static func create(seed: Int, desiredShapedQuantity: Int) -> InitialData<Popper> {
+        return InitialData<Popper>(dictionary: [
+            "initial-seed": seed.string!,
+            "initial-desiredShapeQuantity": desiredShapedQuantity.string!,
+        ])
+    }
+    
+    static func random() -> InitialData<Popper> {
+        let seed = GKRandomDistribution(lowestValue: 1, highestValue: 1000000000).nextInt()
+        return InitialData<Popper>.create(seed: seed, desiredShapedQuantity: 3)
     }
 }
 
-public extension StringDictionaryRepresentable {
-    init?(reader: Reader) {
-        self.init(dictionary: reader.data)
-    }
-}
