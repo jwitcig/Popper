@@ -55,9 +55,7 @@ final class Popper: Game {
         let yLow = padding?.top ?? 0
         let yHigh = Int(UIScreen.size.height) - (padding?.bottom ?? 0)
         
-        let randomSource = GKLinearCongruentialRandomSource(seed: UInt64(initial.seed))
-
-        let spread = RandomPointGenerator(x: (xLow, xHigh), y: (yLow, yHigh), source: randomSource)
+        let spread = RandomPointGenerator(x: (xLow, xHigh), y: (yLow, yHigh), source: initial.randomSource)
         createItemTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             self.createShape?(spread.newPoint(), 50)
         }
@@ -108,6 +106,10 @@ extension InstanceData where SessionType: Popper {
 extension InitialData where SessionType: Popper {
     var seed: Int { return dictionary["initial-seed"]!.int! }
     var desiredShapeQuantity: Int { return dictionary["initial-desiredShapeQuantity"]!.int! }
+    
+    var randomSource: GKRandomSource {
+        return GKLinearCongruentialRandomSource(seed: UInt64(typed(as: Popper.self).seed))
+    }
     
     private init(dictionary: [String: String]) {
         self.dictionary = dictionary
