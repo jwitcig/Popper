@@ -40,16 +40,12 @@ class PopperScene: SKScene, GameScene {
     private var leftToPop = 0 {
         didSet { (leftToPop == 0) | popper.finish }
     }
-    
-    let messageSender: MessageSender
-    
-    init(initial providedInitial: InitialData<Popper>?, previousSession: Session<Popper>?, delegate: GameCycleDelegate, messageSender: MessageSender) {
-        let initial = providedInitial ?? previousSession?.initial ?? InitialData<Popper>.random()
+        
+    init(initial providedInitial: PopperInitialData?, previousSession: PopperSession?, delegate: GameCycleDelegate) {
+        let initial = providedInitial ?? previousSession?.initial ?? PopperInitialData.random()
         
         self.leftToDisplay = initial.desiredShapeQuantity
         self.leftToPop = initial.desiredShapeQuantity
-
-        self.messageSender = messageSender
         
         super.init(size: UIScreen.size)
         self.scaleMode = .aspectFill
@@ -108,11 +104,12 @@ class PopperScene: SKScene, GameScene {
         leftToDisplay -= leftToDisplay > 0 ? 1 : 0
     }
     
-    func gatherSessionData() -> Session<Popper> {
-        return Session<Popper>(instance: InstanceData<Popper>.create(score: popper.lifeCycle.elapsedTime),
-                                initial: InitialData<Popper>.create(seed: popper.initial.seed,
-                                                   desiredShapedQuantity: popper.initial.desiredShapeQuantity),
-                         messageSession: nil)
+    func gatherSessionData() -> PopperSession {
+        let score: Double = popper.lifeCycle.elapsedTime
+        
+        let instance = PopperInstanceData(score: score)
+        let initial = PopperInitialData(seed: popper.initial.seed, desiredShapeQuantity: popper.initial.desiredShapeQuantity)
+        return PopperSession(instance: instance, initial: initial, messageSession: nil)
     }
     
     override func update(_ currentTime: TimeInterval) {

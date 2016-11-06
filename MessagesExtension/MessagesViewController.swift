@@ -22,7 +22,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     var isAwaitingResponse = false
     
     var messageCancelled = false
-    
+        
     override func willBecomeActive(with conversation: MSConversation) {
         if let message = conversation.selectedMessage {
             handleStarterEvent(message: message, conversation: conversation)
@@ -39,7 +39,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     }
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
-        guard let _ = Reader(message: message) else { return }
+
     }
     
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
@@ -79,9 +79,6 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
             return
         }
         
-        guard let _ = Reader(message: message) else { return }
-        
-        
         isAwaitingResponse = false
         
         if let controller = gameController {
@@ -115,7 +112,7 @@ extension MessagesViewController {
         actionView.reapplyConstraints()
     }
     
-    fileprivate func createGameController<T: Game>(ofType _: T.Type, fromMessage parser: Reader? = nil) -> GameViewController<T> {
-        return GameViewController<T>.create(fromMessage: parser, messageSender: self)
+    fileprivate func createGameController<G>(ofType _: G.Type, fromMessage parser: MessageReader? = nil) -> GameViewController<G> where G: SessionConstraint {
+        return GameViewController<G>(fromMessage: parser, messageSender: self, orientationManager: self)
     }
 }

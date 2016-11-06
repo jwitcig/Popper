@@ -16,19 +16,25 @@ import SwiftTools
 
 protocol GameCycleDelegate {
     func started(game: Game)
-    func finished<GameType>(session: Session<GameType>)
+    func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable & Messageable
 }
 
-class GameViewController<T>: MSMessagesAppViewController, GameCycleDelegate {
+class GameViewController<G>: MSMessagesAppViewController, GameCycleDelegate where G: SessionConstraint, G.Session.ConstraintType == G, G.Session: StringDictionaryRepresentable, G.Session: Messageable, G.Session.InitialData: StringDictionaryRepresentable, G.Session.InstanceData: StringDictionaryRepresentable {
+    
     static var storyboardIdentifier: String { return "GameViewController" }
     
-    typealias GameType = T
-    
-    var messageSender: MessageSender!
+    typealias GameType = G
+    typealias Session = G.Session
+    typealias InitialData = Session.InitialData
+
+    var messageSender: MessageSender?
+    var orientationManager: OrientationManager?
     
     let scoreView = ScoreView.create()
     
-    var opponentsSession: Session<GameType>?
+    var opponentsSession: Session?
+    
+    var messageSession: MSSession?
     
     var sceneView: SKView! {
         return view as! SKView
@@ -40,33 +46,36 @@ class GameViewController<T>: MSMessagesAppViewController, GameCycleDelegate {
         super.viewDidLoad()
     }
     
-    static func create(fromMessage parser: Reader? = nil, messageSender: MessageSender) -> GameViewController<GameType> {
-        let controller = GameViewController<GameType>(nibName: GameViewController.storyboardIdentifier, bundle: Bundle(for: GameViewController.self), messageSender: messageSender)
-
-        if let parser = parser, let _ = InitialData<Popper>.create(dictionary: parser.data) {
-            
-        }
-        return controller
-    }
+//    static func create(fromMessage parser: Reader? = nil, messageSender: MessageSender) -> GameViewController<GameType> {
+//        let controller = GameViewController<GameType>(messageSender: messageSender)
+//
+//        if let parser = parser {
+//            
+//        }
+//        return controller
+//    }
     
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, messageSender: MessageSender) {
+    init(fromMessage parser: MessageReader? = nil, messageSender: MessageSender, orientationManager: OrientationManager) {
+        self.messageSession = parser?.message.session
+        
         self.messageSender = messageSender
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.orientationManager = orientationManager
+        super.init(nibName: GameViewController.storyboardIdentifier, bundle: Bundle(for: GameViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func set(initials: InitialData<GameType>? = nil, opponentSession: Session<GameType>?) {
-        self.scene = createScene(ofType: GameType.self, initials: initials, session: opponentSession)
-    }
+//    func set(initials: InitialDataType? = nil, opponentSession: AnySession) {
+//        self.scene = createScene(ofType: GameType.self, initials: initials, session: opponentSession)
+//    }
     
     private func setup(scene: SKScene) {
         sceneView.presentScene(scene)
     }
     
-    func continueGame(from session: Session<GameType>) {
+    func continueGame(from session: Session) {
         switch GameType.self {
         case is Popper.Type:
             self.scene = createScene(ofType: GameType.self, initials: nil, session: session)
@@ -110,31 +119,27 @@ class GameViewController<T>: MSMessagesAppViewController, GameCycleDelegate {
         return actionView
     }
     
-    func createScene(ofType gameType: GameType.Type, initials existingInitials: InitialData<GameType>?, session previousSession: Session<GameType>?) -> GameScene {
-        
+    func createScene(ofType gameType: GameType.Type, initials existingInitials: InitialData?, session previousSession: Session?) -> GameScene {
         switch GameType.self {
             
         case is Popper.Type:
-            var initials: InitialData<Popper>?
-            if let existing = existingInitials {
-                initials = InitialData<Popper>.create(dictionary: existing.dictionary)
-            }
+            let initial = existingInitials != nil ? PopperInitialData(dictionary: existingInitials!.dictionary) : nil
             
-            var popperSession: Session<Popper>?
-            if let previous = previousSession {
-                popperSession = Session<Popper>.init(dictionary: previous.dictionary)
-            }
-            return PopperScene(initial: initials, previousSession: popperSession, delegate: self, messageSender: messageSender)
-        default: fatalError()
+            let popperSession = previousSession != nil ? PopperSession(dictionary: previousSession!.dictionary) : nil
+            
+            return PopperScene(initial: initial,
+                       previousSession: popperSession,
+                              delegate: self)
+                default: fatalError()
         }
     }
-    
+     
     func started(game: Game) {
         
     }
     
-    func finished<GameType>(session: Session<GameType>) {
-        
+    func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable & Messageable {
+    
 //        if let theirScore = opponentsSession?.data.score {
 //            showScore(game: game, yourScore: yourScore, theirScore: theirScore)
 //        }
@@ -145,9 +150,10 @@ class GameViewController<T>: MSMessagesAppViewController, GameCycleDelegate {
         let layout = MSMessageTemplateLayout()
         layout.caption = "Their turn."
         layout.image = UIImage(named: "image.jpg")
-        
-        let message = MessageWriter(data: session.dictionary, session: session.messageSession).message
-        messageSender.send(message: message, layout: layout, completionHandler: nil)
+    
+        if let message = S.MessageWriterType(data: session.dictionary, session: messageSession)?.message {
+            messageSender?.send(message: message, layout: layout, completionHandler:nil)
+        }
     }
     
     private func showScore(game: Popper, yourScore: Double, theirScore: Double? = nil) {

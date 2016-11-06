@@ -16,12 +16,14 @@ import SwiftTools
 
 infix operator |
 
-final class Popper: Game {
+final class Popper: Game, SessionConstraint {
+    typealias Session = PopperSession
+    
     typealias GameType = Popper
     
     static let GameName = "Popper"
     
-    let initial: InitialData<Popper>
+    let initial: PopperInitialData
     
     let padding: Padding?
     
@@ -31,19 +33,23 @@ final class Popper: Game {
     
     let lifeCycle: LifeCycle
     
-    init(previousSession: Session<Popper>?,
-                 initial: InitialData<Popper>?,
+    let previousSession: PopperSession?
+    
+    init(previousSession: PopperSession?,
+                 initial: PopperInitialData?,
              createShape: @escaping (CGPoint, CGFloat)->Void,
                  padding: Padding?,
                    cycle: LifeCycle) {
         
-        self.initial = initial ?? InitialData<Popper>.random()
+        self.initial = initial ?? PopperInitialData.random()
         
         self.padding = padding
         
         self.createShape = createShape
         
         self.lifeCycle = cycle
+        
+        self.previousSession = previousSession
     }
 
     func start() {
@@ -57,7 +63,7 @@ final class Popper: Game {
         
         let spread = RandomPointGenerator(x: (xLow, xHigh), y: (yLow, yHigh), source: initial.randomSource)
         createItemTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.createShape?(spread.newPoint(), 50)
+            self.createShape?(spread.newPoint(), 25)
         }
     }
     
@@ -78,59 +84,143 @@ final class Popper: Game {
     }
 }
 
-extension Session where SessionType: Popper {
-    var gameData: InstanceData<SessionType> {
+struct PopperSession: SessionType, StringDictionaryRepresentable, Messageable {
+    typealias ConstraintType = Popper
+    typealias InitialData = PopperInitialData
+    typealias InstanceData = PopperInstanceData
+    typealias MessageWriterType = PopperMessageWriter
+    
+    let initial: InitialData
+    let instance: InstanceData
+    
+    let messageSession: MSSession?
+    
+    var dictionary: [String : String] {
+        return instance.dictionary.merged(initial.dictionary)
+    }
+    
+    public init(instance: PopperInstanceData, initial: PopperInitialData, messageSession: MSSession?) {
+        self.instance = instance
+        self.initial = initial
+       
+        self.messageSession = messageSession
+    }
+    
+    public init?(dictionary: [String: String]) {
+        guard let instance = PopperInstanceData(dictionary: dictionary) else { return nil }
+        guard let initial = PopperInitialData(dictionary: dictionary) else { return nil }
+        
+        self.instance = instance
+        self.initial = initial
+        
+        self.messageSession = nil
+    }
+}
+
+extension PopperSession {
+    var gameData: PopperInstanceData {
         return instance
     }
 }
 
-extension InstanceData where SessionType: Popper {
-    var score: Double { return dictionary["instance-score"]!.double! }
+struct PopperInstanceData: InstanceDataType, StringDictionaryRepresentable {
+    typealias ConstraintType = Popper
+
+    let score: Double
     
-    private init(dictionary: [String: String]) {
-        self.dictionary = dictionary
-    }
-    
-    static func create(dictionary: [String: String]) -> InstanceData<Popper>? {
-        guard let _ = dictionary["instance-score"]?.double else { return nil }
-        return InstanceData<Popper>(dictionary: dictionary)
-    }
-    
-    static func create(score: Double) -> InstanceData<Popper> {
-        return InstanceData<Popper>(dictionary: [
+    var dictionary: [String: String] {
+        return [
             "instance-score": score.string!,
-        ])
+        ]
+    }
+    
+    init(score: Double) {
+        self.score = score
+    }
+    
+    init?(dictionary: [String: String]) {
+        guard let score = dictionary["instance-score"]?.double else { return nil }
+        self.init(score: score)
     }
 }
 
-extension InitialData where SessionType: Popper {
-    var seed: Int { return dictionary["initial-seed"]!.int! }
-    var desiredShapeQuantity: Int { return dictionary["initial-desiredShapeQuantity"]!.int! }
+struct PopperInitialData: InitialDataType, StringDictionaryRepresentable {
+    typealias ConstraintType = Popper
+
+    let seed: Int
+    let desiredShapeQuantity: Int
     
     var randomSource: GKRandomSource {
-        return GKLinearCongruentialRandomSource(seed: UInt64(typed(as: Popper.self).seed))
+        return GKLinearCongruentialRandomSource(seed: UInt64(seed))
     }
     
-    private init(dictionary: [String: String]) {
-        self.dictionary = dictionary
-    }
-    
-    static func create(dictionary: [String: String]) -> InitialData<Popper>? {
-        guard let _ = dictionary["initial-seed"]?.int else { return nil }
-        guard let _ = dictionary["initial-desiredShapeQuantity"]!.int else { return nil }
-        return InitialData<Popper>(dictionary: dictionary)
-    }
-    
-    static func create(seed: Int, desiredShapedQuantity: Int) -> InitialData<Popper> {
-        return InitialData<Popper>(dictionary: [
+    var dictionary: [String: String] {
+        return [
             "initial-seed": seed.string!,
-            "initial-desiredShapeQuantity": desiredShapedQuantity.string!,
-        ])
+            "initial-desiredShapeQuantity": desiredShapeQuantity.string!,
+        ]
     }
     
-    static func random() -> InitialData<Popper> {
+    init(seed: Int, desiredShapeQuantity: Int) {
+        self.seed = seed
+        self.desiredShapeQuantity = desiredShapeQuantity
+    }
+    
+    init?(dictionary: [String: String]) {
+        guard let seed = dictionary["initial-seed"]?.int else { return nil }
+        guard let desiredShapeQuantity = dictionary["initial-desiredShapeQuantity"]!.int else { return nil }
+        self.init(seed: seed, desiredShapeQuantity: desiredShapeQuantity)
+    }
+    
+    static func random() -> PopperInitialData {
         let seed = GKRandomDistribution(lowestValue: 1, highestValue: 1000000000).nextInt()
-        return InitialData<Popper>.create(seed: seed, desiredShapedQuantity: 3)
+        return PopperInitialData(seed: seed, desiredShapeQuantity: 3)
     }
 }
 
+struct PopperMessageReader: MessageReader {
+    var message: MSMessage
+    var data: [String: String]
+    
+    var session: PopperSession!
+    
+    init() {
+        self.message = MSMessage()
+        self.data = [:]
+    }
+    
+    mutating func isValid(data: [String : String]) -> Bool {
+        guard let instance = PopperInstanceData(dictionary: data) else { return false }
+        guard let initial = PopperInitialData(dictionary: data) else { return false }
+        self.session = PopperSession(instance: instance, initial: initial, messageSession: message.session)
+        return true
+    }
+}
+
+struct PopperMessageWriter: MessageWriter {
+    var message: MSMessage
+    var data: [String: String]
+    
+    init() {
+        self.message = MSMessage()
+        self.data = [:]
+    }
+    
+    func isValid(data: [String : String]) -> Bool {
+        guard let _ = data["initial-seed"]?.int else { return false }
+        guard let _ = data["initial-desiredShapeQuantity"]?.int else { return false }
+        guard let _ = data["instance-score"]?.double else { return false }
+        return true
+    }
+}
+
+
+//@available(iOS 10.0, *)
+//@available(iOSApplicationExtension 10.0, *)
+//public protocol MessageWriter: MessageInterpreter {
+//    var message: MSMessage { get set }
+//    var data: [String: String] { get set }
+//    
+//    init()
+//    init?(data: [String : String], session: MSSession?)
+//}
