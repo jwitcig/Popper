@@ -16,11 +16,9 @@ class ScoreView: UIView {
     
     @IBOutlet weak var winnerLabel: UILabel!
     
-    var done: (()->Void)?
-    
     var yourScore: String {
         get { return yourScoreLabel.text ?? "" }
-        set { yourScoreLabel.text = "score: \(newValue)" }
+        set { yourScoreLabel.text = "your score: \(newValue)" }
     }
     var theirScore: String? {
         get { return theirScoreLabel.text }
@@ -29,27 +27,25 @@ class ScoreView: UIView {
     
     var winner: Team.OneOnOne? {
         didSet {
-            guard let winner = winner else { return }
+            
+            guard let winner = winner else {
+                winnerLabel.text = "Their turn."
+                return
+            }
             
             switch winner {
             case .you:
-                winnerLabel.text = "you won!"
+                winnerLabel.text = "You won!"
             case .them:
-                winnerLabel.text = "they won."
+                winnerLabel.text = "They won."
             }
         }
     }
     
     static func create() -> ScoreView {
         var view: ScoreView!
-        
         view = Bundle.main.loadNibNamed("ScoreView", owner: view, options: nil)!.first! as! ScoreView
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }
-    
-    @IBAction func donePressed(sender: Any) {
-        removeFromSuperview()
-        done?()
     }
 }

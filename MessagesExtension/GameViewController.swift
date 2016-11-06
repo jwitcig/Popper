@@ -14,24 +14,21 @@ import Game
 import iMessageTools
 import SwiftTools
 
-protocol GameCycleDelegate {
-    func started(game: Game)
-    func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable & Messageable
-}
-
-class GameViewController<G>: MSMessagesAppViewController, GameCycleDelegate where G: SessionConstraint, G.Session.ConstraintType == G, G.Session: StringDictionaryRepresentable, G.Session: Messageable, G.Session.InitialData: StringDictionaryRepresentable, G.Session.InstanceData: StringDictionaryRepresentable {
-    
+class GameViewController<GameType, Scene, Session>: MSMessagesAppViewController where
+    GameType: TypeConstraint & SingleScene,
+    Session: SessionType & StringDictionaryRepresentable & Messageable,
+    Session.InitialData: StringDictionaryRepresentable,
+    Session.InstanceData: StringDictionaryRepresentable,
+    Scene: SKScene,
+    Scene: GameScene {
+   
     static var storyboardIdentifier: String { return "GameViewController" }
     
-    typealias GameType = G
-    typealias Session = G.Session
     typealias InitialData = Session.InitialData
-
-    var messageSender: MessageSender?
-    var orientationManager: OrientationManager?
     
-    let scoreView = ScoreView.create()
-    
+    var messageSender: MessageSender!
+    var orientationManager: OrientationManager!
+        
     var opponentsSession: Session?
     
     var messageSession: MSSession?
@@ -40,50 +37,55 @@ class GameViewController<G>: MSMessagesAppViewController, GameCycleDelegate wher
         return view as! SKView
     }
     
-    var scene: GameScene?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-//    static func create(fromMessage parser: Reader? = nil, messageSender: MessageSender) -> GameViewController<GameType> {
-//        let controller = GameViewController<GameType>(messageSender: messageSender)
-//
-//        if let parser = parser {
-//            
-//        }
-//        return controller
-//    }
+    var scene: Scene?
     
     init(fromMessage parser: MessageReader? = nil, messageSender: MessageSender, orientationManager: OrientationManager) {
         self.messageSession = parser?.message.session
         
+        if let data = parser?.data {
+            self.opponentsSession = Session.init(dictionary: data)
+        }
+        
         self.messageSender = messageSender
         self.orientationManager = orientationManager
         super.init(nibName: GameViewController.storyboardIdentifier, bundle: Bundle(for: GameViewController.self))
+        
+        setBackgroundColor(color: .black)
+    }
+    
+    private func setBackgroundColor(color: UIColor) {
+        let blackScene = SKScene()
+        blackScene.backgroundColor = color
+        present(scene: blackScene)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-//    func set(initials: InitialDataType? = nil, opponentSession: AnySession) {
-//        self.scene = createScene(ofType: GameType.self, initials: initials, session: opponentSession)
-//    }
-    
-    private func setup(scene: SKScene) {
+    private func present(scene: SKScene) {
         sceneView.presentScene(scene)
+    }
+    
+    func initiateGame() {
+        if let previousSession = opponentsSession {
+            continueGame(from: previousSession)
+        } else {
+            startNewGame()
+        }
     }
     
     func continueGame(from session: Session) {
         switch GameType.self {
         case is Popper.Type:
-            self.scene = createScene(ofType: GameType.self, initials: nil, session: session)
+            self.scene = createScene(ofType: GameType.self, initials: session.initial, session: session)
         default:
             fatalError("unimplemented case")
         }
         
         requestPresentationStyle(.expanded)
+        
+        present(scene: scene!)
         
         let startGameConfirmation = createActionView(action: .startGame)
         startGameConfirmation.action = scene?.game.start
@@ -97,7 +99,7 @@ class GameViewController<G>: MSMessagesAppViewController, GameCycleDelegate wher
             self.scene = self.createScene(ofType: GameType.self, initials: nil, session: nil)
             self.requestPresentationStyle(.expanded)
             
-            self.setup(scene: self.scene as! SKScene)
+            self.present(scene: self.scene!)
             
             let startGameConfirmation = self.createActionView(action: .startGame)
             startGameConfirmation.action = self.scene?.game.start
@@ -119,59 +121,38 @@ class GameViewController<G>: MSMessagesAppViewController, GameCycleDelegate wher
         return actionView
     }
     
-    func createScene(ofType gameType: GameType.Type, initials existingInitials: InitialData?, session previousSession: Session?) -> GameScene {
+    func createScene(ofType gameType: GameType.Type, initials existingInitials: InitialData?, session previousSession: Session?) -> Scene {
+        
         switch GameType.self {
             
         case is Popper.Type:
-            let initial = existingInitials != nil ? PopperInitialData(dictionary: existingInitials!.dictionary) : nil
-            
-            let popperSession = previousSession != nil ? PopperSession(dictionary: previousSession!.dictionary) : nil
-            
-            return PopperScene(initial: initial,
-                       previousSession: popperSession,
-                              delegate: self)
-                default: fatalError()
+            return PopperScene(initial: existingInitials as? PopperInitialData,
+                       previousSession: previousSession as? PopperSession,
+                              delegate: self) as! Scene
+        default: fatalError()
         }
     }
-     
+   
+}
+
+extension GameViewController: GameCycleDelegate {
     func started(game: Game) {
         
     }
     
-    func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable & Messageable {
-    
-//        if let theirScore = opponentsSession?.data.score {
-//            showScore(game: game, yourScore: yourScore, theirScore: theirScore)
-//        }
-        
-        (scene as? SKScene)?.removeFromParent()
+    func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable {
+        scene?.removeFromParent()
         sceneView?.presentScene(nil)
         
-        let layout = MSMessageTemplateLayout()
-        layout.caption = "Their turn."
-        layout.image = UIImage(named: "image.jpg")
-    
-        if let message = S.MessageWriterType(data: session.dictionary, session: messageSession)?.message {
-            messageSender?.send(message: message, layout: layout, completionHandler:nil)
+        orientationManager.requestPresentationStyle(.compact)
+        
+        var layout = MSMessageTemplateLayout()
+        if let popperSession = session as? PopperSession {
+            layout = PopperMessageLayoutBuilder(session: popperSession).generateLayout()
         }
-    }
-    
-    private func showScore(game: Popper, yourScore: Double, theirScore: Double? = nil) {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.maximumFractionDigits = 3
         
-        guard let yourFormattedScore = numberFormatter.string(from: NSNumber(value: yourScore)) else { return }
-        let theirFormattedScore = theirScore == nil ? nil : numberFormatter.string(from: NSNumber(value: theirScore!))
-        
-        view.addSubview(scoreView)
-
-        scoreView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scoreView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        scoreView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scoreView.heightAnchor.constraint(equalToConstant: 230).isActive = true
-        
-        scoreView.yourScore = yourFormattedScore
-        scoreView.theirScore = theirFormattedScore
-        scoreView.winner = .you
+        if let message = Session.MessageWriterType(data: session.dictionary, session: messageSession)?.message {
+            messageSender.send(message: message, layout: layout, completionHandler: nil)
+        }
     }
 }

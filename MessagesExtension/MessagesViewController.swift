@@ -27,9 +27,9 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
         if let message = conversation.selectedMessage {
             handleStarterEvent(message: message, conversation: conversation)
         } else {
-            let controller = createGameController(ofType: Popper.self)
+            let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self)
             present(controller)
-            controller.startNewGame()
+            controller.initiateGame()
         }
     }
     
@@ -55,20 +55,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
         case .compact:
             break
         case .expanded:
-            
-            if messageCancelled {
-                guard !isAwaitingResponse else {
-                    showWaitingForOpponent()
-                    return
-                }
-                
-                if let conversation = activeConversation, let message = conversation.selectedMessage {
-                    handleStarterEvent(message: message, conversation: conversation)
-                } else {
-//                    show(gameController, status: .new)
-                }
-                messageCancelled = false
-            }
+            break
         }
     }
     
@@ -81,11 +68,14 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
         
         isAwaitingResponse = false
         
+        let parser = GeneralMessageReader(message: message)
+        
         if let controller = gameController {
             throwAway(controller: controller)
         }
-        let controller = createGameController(ofType: Popper.self)
+        let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self, fromMessage: parser)
         present(controller)
+        controller.initiateGame()
     }
 }
 
@@ -112,7 +102,18 @@ extension MessagesViewController {
         actionView.reapplyConstraints()
     }
     
-    fileprivate func createGameController<G>(ofType _: G.Type, fromMessage parser: MessageReader? = nil) -> GameViewController<G> where G: SessionConstraint {
-        return GameViewController<G>(fromMessage: parser, messageSender: self, orientationManager: self)
+    fileprivate func createGameController<G, S, U>(ofType _: G.Type,
+                                          type: S.Type,
+                                          other: U.Type,
+                                        fromMessage parser: MessageReader? = nil)
+        -> GameViewController<G, S, U> where
+        G: TypeConstraint,
+        U: SessionType & StringDictionaryRepresentable & Messageable,
+        U.InitialData: StringDictionaryRepresentable,
+        U.InstanceData: StringDictionaryRepresentable,
+        G: SingleScene,
+        S: SKScene,
+        S: GameScene {
+        return GameViewController<G, S, U>(fromMessage: parser, messageSender: self, orientationManager: self)
     }
 }

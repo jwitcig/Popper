@@ -14,14 +14,21 @@ import Game
 import iMessageTools
 import SwiftTools
 
+extension CGPoint {
+    func distance(to point: CGPoint) -> CGFloat {
+        return sqrt(pow(x - point.x, 2) + pow(y - point.y, 2))
+    }
+}
+
 infix operator |
 
-final class Popper: Game, SessionConstraint {
+final class Popper: Game, TypeConstraint, SingleScene {
     typealias Session = PopperSession
-    
-    typealias GameType = Popper
-    
+    typealias Scene = PopperScene
+
     static let GameName = "Popper"
+    
+    typealias SceneType = PopperScene
     
     let initial: PopperInitialData
     
@@ -58,12 +65,28 @@ final class Popper: Game, SessionConstraint {
         let xLow = padding?.left ?? 0
         let xHigh = Int(UIScreen.size.width) - (padding?.right ?? 0)
         
-        let yLow = padding?.top ?? 0
-        let yHigh = Int(UIScreen.size.height) - (padding?.bottom ?? 0)
+        let yLow = padding?.bottom ?? 0
+        let yHigh = Int(UIScreen.size.height) - (padding?.top ?? 0)
         
         let spread = RandomPointGenerator(x: (xLow, xHigh), y: (yLow, yHigh), source: initial.randomSource)
-        createItemTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.createShape?(spread.newPoint(), 25)
+        
+        var previousPoints = [CGPoint]()
+        createItemTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { _ in
+        
+            func point(_ point: CGPoint, tooNearTo recentPoints: ArraySlice<CGPoint>) -> Bool {
+                return recentPoints.reduce(false) {
+                    $0 ? $0 : point.distance(to: $1) < 30
+                }
+            }
+            
+            var newPoint: CGPoint!
+            var tooNear = true
+            while tooNear {
+                newPoint = spread.newPoint()
+                tooNear = point(newPoint, tooNearTo: previousPoints.suffix(10))
+            }
+            previousPoints.append(newPoint)
+            self.createShape?(newPoint, 25)
         }
     }
     
@@ -84,11 +107,19 @@ final class Popper: Game, SessionConstraint {
     }
 }
 
+extension SessionType {
+    typealias Key = String
+    typealias Value = String
+}
+
 struct PopperSession: SessionType, StringDictionaryRepresentable, Messageable {
-    typealias ConstraintType = Popper
+    typealias Constraint = Popper
     typealias InitialData = PopperInitialData
     typealias InstanceData = PopperInstanceData
     typealias MessageWriterType = PopperMessageWriter
+    typealias MessageLayoutBuilderType = PopperMessageLayoutBuilder
+    
+    typealias Scene = PopperScene
     
     let initial: InitialData
     let instance: InstanceData
@@ -124,28 +155,32 @@ extension PopperSession {
 }
 
 struct PopperInstanceData: InstanceDataType, StringDictionaryRepresentable {
-    typealias ConstraintType = Popper
+    typealias Constraint = Popper
 
     let score: Double
+    let winner: Team.OneOnOne?
     
     var dictionary: [String: String] {
         return [
             "instance-score": score.string!,
+            "instance-winner": winner?.rawValue ?? "incomplete",
         ]
     }
     
-    init(score: Double) {
+    init(score: Double, winner: Team.OneOnOne?) {
         self.score = score
+        self.winner = winner
     }
     
     init?(dictionary: [String: String]) {
         guard let score = dictionary["instance-score"]?.double else { return nil }
-        self.init(score: score)
+        guard let winner = dictionary["instance-winner"] else { return nil }
+        self.init(score: score, winner: Team.OneOnOne(rawValue: winner))
     }
 }
 
 struct PopperInitialData: InitialDataType, StringDictionaryRepresentable {
-    typealias ConstraintType = Popper
+    typealias Constraint = Popper
 
     let seed: Int
     let desiredShapeQuantity: Int
@@ -174,15 +209,17 @@ struct PopperInitialData: InitialDataType, StringDictionaryRepresentable {
     
     static func random() -> PopperInitialData {
         let seed = GKRandomDistribution(lowestValue: 1, highestValue: 1000000000).nextInt()
-        return PopperInitialData(seed: seed, desiredShapeQuantity: 3)
+        return PopperInitialData(seed: seed, desiredShapeQuantity: 10)
     }
 }
 
-struct PopperMessageReader: MessageReader {
+struct PopperMessageReader: MessageReader, SessionSpecific {
+    typealias SessionConstraint = PopperSession
+    
     var message: MSMessage
     var data: [String: String]
     
-    var session: PopperSession!
+    var session: SessionConstraint!
     
     init() {
         self.message = MSMessage()
@@ -210,17 +247,26 @@ struct PopperMessageWriter: MessageWriter {
         guard let _ = data["initial-seed"]?.int else { return false }
         guard let _ = data["initial-desiredShapeQuantity"]?.int else { return false }
         guard let _ = data["instance-score"]?.double else { return false }
+        guard let _ = data["instance-winner"] else { return false }
         return true
     }
 }
 
-
-//@available(iOS 10.0, *)
-//@available(iOSApplicationExtension 10.0, *)
-//public protocol MessageWriter: MessageInterpreter {
-//    var message: MSMessage { get set }
-//    var data: [String: String] { get set }
-//    
-//    init()
-//    init?(data: [String : String], session: MSSession?)
-//}
+struct PopperMessageLayoutBuilder: MessageLayoutBuilder {
+    let session: PopperSession
+    
+    init(session: PopperSession) {
+        self.session = session
+    }
+    
+    func generateLayout() -> MSMessageTemplateLayout {
+        let layout = MSMessageTemplateLayout()
+        layout.image = UIImage(named: "image.jpg")
+        layout.caption = "Your turn."
+        if let winner = session.instance.winner {
+            layout.caption = winner == .you ? "You won!" : "You Lost!"
+        }
+        return layout
+    }
+    
+}

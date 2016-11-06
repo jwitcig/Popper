@@ -12,9 +12,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Game:
-    :path: "~/Documents/projects/iOS-Game"
+    :path: ~/Documents/projects/iOS-Game
   iMessageTools:
-    :path: "~/Documents/projects/iMessageTools"
+    :path: ~/Documents/projects/iMessageTools
   SwiftTools:
     :git: https://github.com/jwitcig/SwiftTools
 

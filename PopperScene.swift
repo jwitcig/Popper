@@ -25,6 +25,8 @@ fileprivate extension CGPoint {
 class PopperScene: SKScene, GameScene {
     static let SceneName = "PopperScene"
     
+    typealias Session = PopperSession
+    
     typealias GameType = Popper
 
     var game: Game!
@@ -32,7 +34,11 @@ class PopperScene: SKScene, GameScene {
         return game as! Popper
     }
     
+    let opponentsSession: PopperSession?
+    
     private var tapItems = [TapItem]()
+    
+    let scoreView = ScoreView.create()
     
     private var leftToDisplay = 0 {
         didSet { (leftToDisplay == 0) | popper.stopCreating }
@@ -40,24 +46,61 @@ class PopperScene: SKScene, GameScene {
     private var leftToPop = 0 {
         didSet { (leftToPop == 0) | popper.finish }
     }
-        
-    init(initial providedInitial: PopperInitialData?, previousSession: PopperSession?, delegate: GameCycleDelegate) {
+    
+    let gameCycleDelegate: GameCycleDelegate
+    
+    public required init(initial providedInitial: PopperInitialData?, previousSession: PopperSession?, delegate gameCycleDelegate: GameCycleDelegate) {
         let initial = providedInitial ?? previousSession?.initial ?? PopperInitialData.random()
         
         self.leftToDisplay = initial.desiredShapeQuantity
         self.leftToPop = initial.desiredShapeQuantity
         
+        self.opponentsSession = previousSession
+
+        self.gameCycleDelegate = gameCycleDelegate
+
         super.init(size: UIScreen.size)
         self.scaleMode = .aspectFill
         
-        let lifeCycle = SessionCycle(started: nil, finished: delegate.finished, generateSession: gatherSessionData)
+        let lifeCycle = SessionCycle(started: nil, finished: finished, generateSession: gatherSessionData)
         
         self.game = Popper(previousSession: previousSession,
                                    initial: initial,
                                createShape: addShape,
-                                   padding: Padding(left: 10, right: 60, top: 100, bottom: 90),
+                                   padding: Padding(left: 30, right: 30, top: 120, bottom: 80),
                                      cycle: lifeCycle)
     }
+    
+    func finished(currentSession: PopperSession) {
+        showScore(game: popper, yourScore: currentSession.instance.score,
+                               theirScore: opponentsSession?.instance.score)
+        gameCycleDelegate.finished(session: currentSession)
+    }
+    
+    private func showScore(game: Popper, yourScore: Double, theirScore: Double? = nil) {
+        guard let view = view else { return }
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 3
+        
+        guard let yourFormattedScore = numberFormatter.string(from: NSNumber(value: yourScore)) else { return }
+        let theirFormattedScore = theirScore == nil ? nil : numberFormatter.string(from: NSNumber(value: theirScore!))
+        
+        view.addSubview(scoreView)
+        
+        scoreView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scoreView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scoreView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scoreView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        
+        scoreView.yourScore = yourFormattedScore
+        scoreView.theirScore = theirFormattedScore
+        scoreView.winner = nil
+        if let theirScore = theirScore {
+            scoreView.winner = yourScore > theirScore ? .you : .them
+        }
+    }
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -105,9 +148,14 @@ class PopperScene: SKScene, GameScene {
     }
     
     func gatherSessionData() -> PopperSession {
-        let score: Double = popper.lifeCycle.elapsedTime
+        let yourScore: Double = popper.lifeCycle.elapsedTime
         
-        let instance = PopperInstanceData(score: score)
+        var winner: Team.OneOnOne?
+        if let theirScore = opponentsSession?.instance.score {
+            winner = yourScore < theirScore ? .you : .them
+        }
+        
+        let instance = PopperInstanceData(score: yourScore, winner: winner)
         let initial = PopperInitialData(seed: popper.initial.seed, desiredShapeQuantity: popper.initial.desiredShapeQuantity)
         return PopperSession(instance: instance, initial: initial, messageSession: nil)
     }
