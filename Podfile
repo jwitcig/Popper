@@ -7,9 +7,13 @@ target 'MessagesExtension' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'SwiftTools', :git => "https://github.com/jwitcig/SwiftTools"
-  pod 'iMessageTools', :path => '~/Documents/projects/iMessageTools'
-  pod 'Game', :path => '~/Documents/projects/iOS-Game'
+  pod 'SwiftTools', :git => ‘https://github.com/jwitcig/SwiftTools’
+  pod 'iMessageTools', :git => 'https://github.com/jwitcig/iMessageTools’, :tag => ‘1.0’
+  pod 'Game', :git => 'https://github.com/jwitcig/iOS-Game’, :tag => ‘1.0.1’
+
+  # local development
+  # pod 'iMessageTools', :path => '~/Documents/projects/iMessageTools'
+  # pod 'Game', :path => '~/Documents/projects/iOS-Game'
 
   post_install do |installer|
       installer.pods_project.targets.each do |target|

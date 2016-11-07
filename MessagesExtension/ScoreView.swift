@@ -18,11 +18,11 @@ class ScoreView: UIView {
     
     var yourScore: String {
         get { return yourScoreLabel.text ?? "" }
-        set { yourScoreLabel.text = "your score: \(newValue)" }
+        set { yourScoreLabel.text = "your time: \(newValue)" }
     }
     var theirScore: String? {
         get { return theirScoreLabel.text }
-        set { theirScoreLabel.text = newValue != nil ? "their score: \(newValue!)" : nil }
+        set { theirScoreLabel.text = newValue != nil ? "their time: \(newValue!)" : nil }
     }
     
     var winner: Team.OneOnOne? {

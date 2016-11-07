@@ -40,10 +40,12 @@ class GameViewController<GameType, Scene, Session>: MSMessagesAppViewController 
     var scene: Scene?
     
     init(fromMessage parser: MessageReader? = nil, messageSender: MessageSender, orientationManager: OrientationManager) {
-        self.messageSession = parser?.message.session
         
-        if let data = parser?.data {
-            self.opponentsSession = Session.init(dictionary: data)
+        if let data = parser?.data, let session = Session.init(dictionary: data), !session.ended {
+            self.opponentsSession = session
+            
+            // only continue the MSSession if you are utilizing an unfinished game session
+            self.messageSession = parser?.message.session
         }
         
         self.messageSender = messageSender
