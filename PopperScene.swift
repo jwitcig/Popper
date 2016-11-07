@@ -96,7 +96,7 @@ class PopperScene: SKScene, GameScene {
         scoreView.theirScore = theirFormattedScore
         scoreView.winner = nil
         if let theirScore = theirScore {
-            scoreView.winner = yourScore > theirScore ? .you : .them
+            scoreView.winner = yourScore < theirScore ? .you : .them
         }
     }
 
@@ -156,7 +156,7 @@ class PopperScene: SKScene, GameScene {
         
         let instance = PopperInstanceData(score: yourScore, winner: winner)
         let initial = PopperInitialData(seed: popper.initial.seed, desiredShapeQuantity: popper.initial.desiredShapeQuantity)
-        return PopperSession(instance: instance, initial: initial, messageSession: nil)
+        return PopperSession(instance: instance, initial: initial, ended: winner != nil, messageSession: nil)
     }
     
     override func update(_ currentTime: TimeInterval) {

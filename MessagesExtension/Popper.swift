@@ -101,7 +101,7 @@ final class Popper: Game, TypeConstraint, SingleScene {
     
     enum MessageKey: String {
         enum Game: String {
-            case score, seed, desiredShapesQuantity, gameOver
+            case score, seed, desiredShapesQuantity
         }
         case gameName = "Popper"
     }
@@ -124,15 +124,19 @@ struct PopperSession: SessionType, StringDictionaryRepresentable, Messageable {
     let initial: InitialData
     let instance: InstanceData
     
+    let ended: Bool
+    
     let messageSession: MSSession?
     
     var dictionary: [String : String] {
-        return instance.dictionary.merged(initial.dictionary)
+        return instance.dictionary.merged(initial.dictionary).merged(["ended" : ended.string!])
     }
     
-    public init(instance: PopperInstanceData, initial: PopperInitialData, messageSession: MSSession?) {
+    public init(instance: PopperInstanceData, initial: PopperInitialData, ended: Bool = false, messageSession: MSSession?) {
         self.instance = instance
         self.initial = initial
+        
+        self.ended = ended
        
         self.messageSession = messageSession
     }
@@ -140,9 +144,12 @@ struct PopperSession: SessionType, StringDictionaryRepresentable, Messageable {
     public init?(dictionary: [String: String]) {
         guard let instance = PopperInstanceData(dictionary: dictionary) else { return nil }
         guard let initial = PopperInitialData(dictionary: dictionary) else { return nil }
-        
+        guard let ended = dictionary["ended"]?.bool else { return nil }
+    
         self.instance = instance
         self.initial = initial
+        
+        self.ended = ended
         
         self.messageSession = nil
     }
@@ -227,9 +234,10 @@ struct PopperMessageReader: MessageReader, SessionSpecific {
     }
     
     mutating func isValid(data: [String : String]) -> Bool {
+        guard let ended = data["ended"]?.bool else { return false }
         guard let instance = PopperInstanceData(dictionary: data) else { return false }
         guard let initial = PopperInitialData(dictionary: data) else { return false }
-        self.session = PopperSession(instance: instance, initial: initial, messageSession: message.session)
+        self.session = PopperSession(instance: instance, initial: initial, ended: ended, messageSession: message.session)
         return true
     }
 }
@@ -244,6 +252,7 @@ struct PopperMessageWriter: MessageWriter {
     }
     
     func isValid(data: [String : String]) -> Bool {
+        guard let _ = data["ended"]?.bool else { return false }
         guard let _ = data["initial-seed"]?.int else { return false }
         guard let _ = data["initial-desiredShapeQuantity"]?.int else { return false }
         guard let _ = data["instance-score"]?.double else { return false }
@@ -263,8 +272,20 @@ struct PopperMessageLayoutBuilder: MessageLayoutBuilder {
         let layout = MSMessageTemplateLayout()
         layout.image = UIImage(named: "MessageImage")
         layout.caption = "Your turn."
+        
+        let winners = ["😀", "😘", "😏", "😎", "🤑", "😛", "😝", "😋"]
+        let losers  = ["😬", "🙃", "😑", "😐", "😶", "😒", "🙄", "😳", "😞", "😠", "☹️"]
+
         if let winner = session.instance.winner {
-            layout.caption = winner == .you ? "You won!" : "You Lost!"
+            
+            switch winner {
+            case .you:
+                let randomIndex = GKRandomDistribution(lowestValue: 0, highestValue: winners.count-1).nextInt()
+                layout.caption = "I won! " + winners[randomIndex]
+            case .them:
+                let randomIndex = GKRandomDistribution(lowestValue: 0, highestValue: losers.count-1).nextInt()
+                layout.caption = "You won. " + losers[randomIndex]
+            }
         }
         return layout
     }
