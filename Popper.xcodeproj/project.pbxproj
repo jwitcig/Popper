@@ -14,7 +14,6 @@
 		8B0335111DC01B9D00DDAD81 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */; };
 		8B0335141DC01B9D00DDAD81 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335121DC01B9D00DDAD81 /* MainInterface.storyboard */; };
 		8B0335161DC01B9D00DDAD81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335151DC01B9D00DDAD81 /* Assets.xcassets */; };
-		8B0335221DC021CE00DDAD81 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B0335211DC021CE00DDAD81 /* image.jpg */; };
 		8B0335241DC0560800DDAD81 /* TapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0335231DC0560800DDAD81 /* TapItem.swift */; };
 		8B26663F1DCACC8F004B953C /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B26663D1DCACC8F004B953C /* GameViewController.xib */; };
 		8B447F661DC15FF400C46BCD /* Popper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B447F651DC15FF400C46BCD /* Popper.swift */; };
@@ -66,7 +65,6 @@
 		8B0335131DC01B9D00DDAD81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		8B0335151DC01B9D00DDAD81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B0335171DC01B9D00DDAD81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B0335211DC021CE00DDAD81 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		8B0335231DC0560800DDAD81 /* TapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapItem.swift; sourceTree = "<group>"; };
 		8B26663D1DCACC8F004B953C /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		8B447F651DC15FF400C46BCD /* Popper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popper.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				8B26663D1DCACC8F004B953C /* GameViewController.xib */,
 				8B447F651DC15FF400C46BCD /* Popper.swift */,
 				8B0335231DC0560800DDAD81 /* TapItem.swift */,
-				8B0335211DC021CE00DDAD81 /* image.jpg */,
 				8B0335121DC01B9D00DDAD81 /* MainInterface.storyboard */,
 				8B551EDD1DC2EEA600A81BAA /* ActionView */,
 				8B551EDC1DC2EE9D00A81BAA /* ScoreView */,
@@ -297,7 +294,6 @@
 				8B26663F1DCACC8F004B953C /* GameViewController.xib in Resources */,
 				8B0335141DC01B9D00DDAD81 /* MainInterface.storyboard in Resources */,
 				8B551ED91DC2EE8A00A81BAA /* ScoreView.xib in Resources */,
-				8B0335221DC021CE00DDAD81 /* image.jpg in Resources */,
 				8BB25FEB1DC280CD00328342 /* PopperScene.sks in Resources */,
 				8BB25FEA1DC280CD00328342 /* Actions.sks in Resources */,
 			);

@@ -30,6 +30,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
             let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self)
             present(controller)
             controller.initiateGame()
+            gameController = controller
         }
     }
     
@@ -39,7 +40,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     }
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
-
+        isAwaitingResponse = true
     }
     
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
@@ -62,6 +63,9 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     func handleStarterEvent(message: MSMessage, conversation: MSConversation) {
         guard !MSMessage.isFromCurrentDevice(message: message,
                                         conversation: conversation) else {
+            if let controller = gameController {
+                throwAway(controller: controller)
+            }
             showWaitingForOpponent()
             return
         }
@@ -76,6 +80,7 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
         let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self, fromMessage: parser)
         present(controller)
         controller.initiateGame()
+        gameController = controller
     }
 }
 

@@ -49,7 +49,9 @@ class PopperScene: SKScene, GameScene {
     
     let gameCycleDelegate: GameCycleDelegate
     
-    public required init(initial providedInitial: PopperInitialData?, previousSession: PopperSession?, delegate gameCycleDelegate: GameCycleDelegate) {
+    let viewAttacher: ViewAttachable
+    
+    public required init(initial providedInitial: PopperInitialData?, previousSession: PopperSession?, delegate gameCycleDelegate: GameCycleDelegate, viewAttacher: ViewAttachable) {
         let initial = providedInitial ?? previousSession?.initial ?? PopperInitialData.random()
         
         self.leftToDisplay = initial.desiredShapeQuantity
@@ -58,6 +60,8 @@ class PopperScene: SKScene, GameScene {
         self.opponentsSession = previousSession
 
         self.gameCycleDelegate = gameCycleDelegate
+        
+        self.viewAttacher = viewAttacher
 
         super.init(size: UIScreen.size)
         self.scaleMode = .aspectFill
@@ -78,20 +82,15 @@ class PopperScene: SKScene, GameScene {
     }
     
     private func showScore(game: Popper, yourScore: Double, theirScore: Double? = nil) {
-        guard let view = view else { return }
-        
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 3
         
         guard let yourFormattedScore = numberFormatter.string(from: NSNumber(value: yourScore)) else { return }
         let theirFormattedScore = theirScore == nil ? nil : numberFormatter.string(from: NSNumber(value: theirScore!))
         
-        view.addSubview(scoreView)
+        scoreView.backgroundColor = .black
         
-        scoreView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scoreView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        scoreView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scoreView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        viewAttacher.display(view: scoreView)
         
         scoreView.yourScore = yourFormattedScore
         scoreView.theirScore = theirFormattedScore

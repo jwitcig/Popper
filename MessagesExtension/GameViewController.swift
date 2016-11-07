@@ -128,12 +128,27 @@ class GameViewController<GameType, Scene, Session>: MSMessagesAppViewController 
         case is Popper.Type:
             return PopperScene(initial: existingInitials as? PopperInitialData,
                        previousSession: previousSession as? PopperSession,
-                              delegate: self) as! Scene
+                              delegate: self,
+                          viewAttacher: self) as! Scene
         default: fatalError()
         }
     }
-   
 }
+
+// for game scene to use to get full screen size
+extension GameViewController: ViewAttachable {
+    func display(view: UIView) {
+        guard let mainView = self.view else { return }
+        
+        mainView.addSubview(view)
+        
+        view.widthAnchor.constraint(equalTo: mainView.widthAnchor).isActive = true
+        view.centerXAnchor.constraint(equalTo: mainView.centerXAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: mainView.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: mainView.bottomAnchor).isActive = true
+    }
+}
+
 
 extension GameViewController: GameCycleDelegate {
     func started(game: Game) {

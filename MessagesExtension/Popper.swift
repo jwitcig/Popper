@@ -261,7 +261,7 @@ struct PopperMessageLayoutBuilder: MessageLayoutBuilder {
     
     func generateLayout() -> MSMessageTemplateLayout {
         let layout = MSMessageTemplateLayout()
-        layout.image = UIImage(named: "image.jpg")
+        layout.image = UIImage(named: "MessageImage")
         layout.caption = "Your turn."
         if let winner = session.instance.winner {
             layout.caption = winner == .you ? "You won!" : "You Lost!"

@@ -26,7 +26,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.62790537469999996" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="PJH-Ag-avn" secondAttribute="bottom" id="QLg-Uk-qwe"/>
                             <constraint firstAttribute="trailing" secondItem="PJH-Ag-avn" secondAttribute="trailing" id="XkW-Jw-z5Q"/>
@@ -34,6 +34,7 @@
                             <constraint firstItem="PJH-Ag-avn" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="v0B-TA-EcZ"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="528"/>
                 </viewController>
