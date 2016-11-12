@@ -29,7 +29,5 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.message-payload-provider</string>
 	</dict>
-	<key>Google Services File</key>
-	<string>$(GOOGLE_SERVICES_FILE)</string>
 </dict>
 </plist>
