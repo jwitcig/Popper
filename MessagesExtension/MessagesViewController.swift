@@ -10,6 +10,8 @@ import GameplayKit
 import Messages
 import UIKit
 
+import Firebase
+
 import Game
 import iMessageTools
 import SwiftTools
@@ -22,7 +24,13 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     var isAwaitingResponse = false
     
     var messageCancelled = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        configureFirebase()
+    }
+    
     override func willBecomeActive(with conversation: MSConversation) {
         if let message = conversation.selectedMessage {
             handleStarterEvent(message: message, conversation: conversation)
@@ -41,9 +49,13 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
         isAwaitingResponse = true
+        
+        FIRAnalytics.logEvent(withName: "GameSent", parameters: [:])
     }
     
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
+        FIRAnalytics.logEvent(withName: "SendCancelled", parameters: [:])
+
         isAwaitingResponse = false
         messageCancelled = true
         if let controller = gameController {
@@ -120,5 +132,14 @@ extension MessagesViewController {
         S: SKScene,
         S: GameScene {
         return GameViewController<G, S, U>(fromMessage: parser, messageSender: self, orientationManager: self)
+    }
+}
+
+extension MessagesViewController {
+    func configureFirebase() {
+        let currentBundle = Bundle(for: MessagesViewController.self)
+        let servicesFileName = currentBundle.infoDictionary!["Google Services File"] as! String
+        let options = FIROptions(contentsOfFile: currentBundle.path(forResource: servicesFileName, ofType: "plist"))!
+        FIRApp.configure(with: options)
     }
 }

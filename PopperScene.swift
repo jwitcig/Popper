@@ -55,7 +55,7 @@ class PopperScene: SKScene, GameScene {
         let initial = providedInitial ?? previousSession?.initial ?? PopperInitialData.random()
         
         self.leftToDisplay = initial.desiredShapeQuantity
-        self.leftToPop = initial.desiredShapeQuantity
+        self.leftToPop = self.leftToDisplay
         
         self.opponentsSession = previousSession
 
@@ -66,13 +66,15 @@ class PopperScene: SKScene, GameScene {
         super.init(size: UIScreen.size)
         self.scaleMode = .aspectFill
         
-        let lifeCycle = SessionCycle(started: nil, finished: finished, generateSession: gatherSessionData)
-        
         self.game = Popper(previousSession: previousSession,
                                    initial: initial,
                                createShape: addShape,
                                    padding: Padding(left: 30, right: 30, top: 120, bottom: 80),
-                                     cycle: lifeCycle)
+                                     cycle: SessionCycle(started: started, finished: finished, generateSession: gatherSessionData))
+    }
+    
+    func started() {
+        gameCycleDelegate.started(game: game)
     }
     
     func finished(currentSession: PopperSession) {

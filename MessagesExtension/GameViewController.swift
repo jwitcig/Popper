@@ -10,6 +10,8 @@ import Messages
 import SpriteKit
 import UIKit
 
+import FirebaseAnalytics
+
 import Game
 import iMessageTools
 import SwiftTools
@@ -151,10 +153,9 @@ extension GameViewController: ViewAttachable {
     }
 }
 
-
 extension GameViewController: GameCycleDelegate {
     func started(game: Game) {
-        
+        FIRAnalytics.logEvent(withName: "GameStart", parameters: [:])
     }
     
     func finished<S>(session: S) where S: SessionType & StringDictionaryRepresentable {

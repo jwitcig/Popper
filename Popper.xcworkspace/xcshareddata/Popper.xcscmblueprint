@@ -5,14 +5,16 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767" : 9223372036854775807,
-    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : 9223372036854775807,
-    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : 9223372036854775807
+    "E79EBB68975B687CF1A65CE23B3545DB4655623D" : 9223372036854775807,
+    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : 9223372036854775807,
+    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "491665C2-BAF8-4846-8382-4C279556CBAF",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767" : "iOS-Game\/",
-    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : "Popper\/",
-    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : "iMessageTools\/"
+    "E79EBB68975B687CF1A65CE23B3545DB4655623D" : "SwiftTools\/",
+    "4182E699B896459DE97CA7637FEAEAF78E9F46CA" : "iMessageTools\/",
+    "F523B14BB7A78D14693C70D37FB71ED21346DE69" : "Popper\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Popper",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -27,6 +29,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/iOS-Game.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "69DEEC8DAEC705382FFEDAD1BADA89EF8B816767"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/SwiftTools.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E79EBB68975B687CF1A65CE23B3545DB4655623D"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jwitcig\/Popper.git",

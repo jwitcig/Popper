@@ -1,41 +1,57 @@
 PODS:
-  - Game (1.0):
+  - Firebase (3.8.0):
+    - Firebase/Core (= 3.8.0)
+  - Firebase/Core (3.8.0):
+    - FirebaseAnalytics (= 3.5.1)
+    - FirebaseCore (= 3.4.4)
+  - FirebaseAnalytics (3.5.1):
+    - FirebaseCore (~> 3.4)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.4.4):
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.8)
+  - Game (1.0.1):
     - SwiftTools
-  - iMessageTools (1.0):
+  - GoogleInterchangeUtilities (1.2.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleSymbolUtilities (1.1.2)
+  - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/NSData+zlib (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - iMessageTools (1.0.2):
     - SwiftTools
-  - SwiftTools (1.1.10)
+  - SwiftTools (1.1.12)
 
 DEPENDENCIES:
-  - Game (from `https://github.com/jwitcig/iOS-Game`, tag `1.0.1`)
-  - iMessageTools (from `https://github.com/jwitcig/iMessageTools`, tag `1.0`)
-  - SwiftTools (from `https://github.com/jwitcig/SwiftTools`)
+  - Firebase
+  - Game (from `~/Documents/projects/iOS-Game`)
+  - iMessageTools (from `~/Documents/projects/iMessageTools`)
+  - SwiftTools (from `~/Documents/projects/SwiftTools`)
 
 EXTERNAL SOURCES:
   Game:
-    :git: https://github.com/jwitcig/iOS-Game
-    :tag: 1.0.1
+    :path: "~/Documents/projects/iOS-Game"
   iMessageTools:
-    :git: https://github.com/jwitcig/iMessageTools
-    :tag: '1.0'
+    :path: "~/Documents/projects/iMessageTools"
   SwiftTools:
-    :git: https://github.com/jwitcig/SwiftTools
-
-CHECKOUT OPTIONS:
-  Game:
-    :git: https://github.com/jwitcig/iOS-Game
-    :tag: 1.0.1
-  iMessageTools:
-    :git: https://github.com/jwitcig/iMessageTools
-    :tag: '1.0'
-  SwiftTools:
-    :commit: b36f1576f9733244dc27bb5f9c5b7793ad8c9fcb
-    :git: https://github.com/jwitcig/SwiftTools
+    :path: "~/Documents/projects/SwiftTools"
 
 SPEC CHECKSUMS:
-  Game: 73f45343e9b84475b17a0bd7be1ae4f974631a9e
-  iMessageTools: 1ce60ab61f777f5ed831f52605d28b6507bc9e0f
-  SwiftTools: de3df762bfd6a9fd1137594479f4a076a9c5c8f3
+  Firebase: fdbecadb7b5cbef2774852d4fa659b9daf11f2af
+  FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
+  FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
+  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  Game: 358fce347cc18175b6eaba18ff2e07bcfc5c940b
+  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
+  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  iMessageTools: f64f38e3554d94863715a376891ae772237e6692
+  SwiftTools: 8a12185f8845c10097d3d31398c41c7ee26cb19f
 
-PODFILE CHECKSUM: 2c444c3743253cb7753905df80c334de0922a809
+PODFILE CHECKSUM: 8ef40ebce71a2b67d07be9f183d16e325c281147
 
 COCOAPODS: 1.1.1

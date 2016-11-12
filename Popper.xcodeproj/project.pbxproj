@@ -25,6 +25,9 @@
 		8BB25FEB1DC280CD00328342 /* PopperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8BB25FE81DC280CD00328342 /* PopperScene.sks */; };
 		8BB25FEC1DC280CD00328342 /* PopperScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB25FE91DC280CD00328342 /* PopperScene.swift */; };
 		8BB25FEE1DC28A7800328342 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB25FED1DC28A7800328342 /* GameViewController.swift */; };
+		8BEC291C1DD1772C00611A6A /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */; };
+		8BEC291E1DD17DBD00611A6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */; };
+		8BEC29201DD1969E00611A6A /* Pods_MessagesExtension.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = EBBAE550BE91399D684FF6E1 /* Pods_MessagesExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBE8CAB6B0B241692CB83FAA /* Pods_Popper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299DA464E3D6406BA36E685B /* Pods_Popper.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -48,6 +51,17 @@
 				8B0335091DC01B9D00DDAD81 /* MessagesExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BEC291F1DD1968100611A6A /* Copy Files (1 item) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8BEC29201DD1969E00611A6A /* Pods_MessagesExtension.framework in Copy Files (1 item) */,
+			);
+			name = "Copy Files (1 item)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -77,6 +91,8 @@
 		8BB25FE81DC280CD00328342 /* PopperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PopperScene.sks; path = ../PopperScene.sks; sourceTree = "<group>"; };
 		8BB25FE91DC280CD00328342 /* PopperScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopperScene.swift; path = ../PopperScene.swift; sourceTree = "<group>"; };
 		8BB25FED1DC28A7800328342 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
+		8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8C4232D93C665F267B7E89F4 /* Pods-MessagesExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagesExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension.release.xcconfig"; sourceTree = "<group>"; };
 		EBBAE550BE91399D684FF6E1 /* Pods_MessagesExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessagesExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFB99A6235D4366BCC5BA6E9 /* Pods-MessagesExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagesExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */,
+				8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */,
+				8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */,
 				8BB25FED1DC28A7800328342 /* GameViewController.swift */,
 				8B26663D1DCACC8F004B953C /* GameViewController.xib */,
 				8B447F651DC15FF400C46BCD /* Popper.swift */,
@@ -225,6 +243,7 @@
 				8B0335051DC01B9D00DDAD81 /* Frameworks */,
 				8B0335061DC01B9D00DDAD81 /* Resources */,
 				FA2DCE599221A61805A06ED1 /* [CP] Copy Pods Resources */,
+				8BEC291F1DD1968100611A6A /* Copy Files (1 item) */,
 			);
 			buildRules = (
 			);
@@ -290,6 +309,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B47E1B01DC1BA4400F53FD8 /* ActionView.xib in Resources */,
+				8BEC291C1DD1772C00611A6A /* GoogleService-Info-Dev.plist in Resources */,
+				8BEC291E1DD17DBD00611A6A /* GoogleService-Info.plist in Resources */,
 				8B0335161DC01B9D00DDAD81 /* Assets.xcassets in Resources */,
 				8B26663F1DCACC8F004B953C /* GameViewController.xib in Resources */,
 				8B0335141DC01B9D00DDAD81 /* MainInterface.storyboard in Resources */,
@@ -515,6 +536,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = 349WFX4WJR;
+				GOOGLE_SERVICES_FILE = "GoogleService-Info-Dev";
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jwitapps.Popper.MessagesExtension;
@@ -530,6 +552,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = 349WFX4WJR;
+				GOOGLE_SERVICES_FILE = "GoogleService-Infoasd";
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jwitapps.Popper.MessagesExtension;

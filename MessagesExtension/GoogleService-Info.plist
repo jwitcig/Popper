@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>504606407935-0c7hvm6e0nph79p2umojfg8sdo6bolkb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.504606407935-0c7hvm6e0nph79p2umojfg8sdo6bolkb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBgNBIUAfUS_Vyt01BSN87_lUgG7Sw8rzo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>504606407935</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jwitapps.Popper.MessagesExtension</string>
+	<key>PROJECT_ID</key>
+	<string>popper-84de9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>popper-84de9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:504606407935:ios:7b19481e1c052a14</string>
+	<key>DATABASE_URL</key>
+	<string>https://popper-84de9.firebaseio.com</string>
+</dict>
+</plist>
