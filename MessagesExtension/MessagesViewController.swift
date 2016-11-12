@@ -134,3 +134,12 @@ extension MessagesViewController {
         return GameViewController(fromMessage: parser, messageSender: self, orientationManager: self)
     }
 }
+
+extension MessagesViewController {
+    func configureFirebase() {
+        let currentBundle = Bundle(for: MessagesViewController.self)
+        let servicesFileName = currentBundle.infoDictionary!["Google Services File"] as! String
+        let options = FIROptions(contentsOfFile: currentBundle.path(forResource: servicesFileName, ofType: "plist"))!
+        FIRApp.configure(with: options)
+    }
+}

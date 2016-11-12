@@ -52,6 +52,17 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8BEC291F1DD1968100611A6A /* Copy Files (1 item) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8BEC29201DD1969E00611A6A /* Pods_MessagesExtension.framework in Copy Files (1 item) */,
+			);
+			name = "Copy Files (1 item)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +90,6 @@
 		8BB25FE81DC280CD00328342 /* PopperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PopperScene.sks; path = ../PopperScene.sks; sourceTree = "<group>"; };
 		8BB25FE91DC280CD00328342 /* PopperScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopperScene.swift; path = ../PopperScene.swift; sourceTree = "<group>"; };
 		8BB25FED1DC28A7800328342 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		8BDC3FF61DD6CC0B00297194 /* MessagesExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MessagesExtension.entitlements; sourceTree = "<group>"; };
 		8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8C4232D93C665F267B7E89F4 /* Pods-MessagesExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagesExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessagesExtension/Pods-MessagesExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +165,8 @@
 				8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */,
 				8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */,
 				8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */,
+				8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */,
+				8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */,
 				8BB25FED1DC28A7800328342 /* GameViewController.swift */,
 				8B26663D1DCACC8F004B953C /* GameViewController.xib */,
 				8B447F651DC15FF400C46BCD /* Popper.swift */,
@@ -233,6 +245,7 @@
 				8B0335051DC01B9D00DDAD81 /* Frameworks */,
 				8B0335061DC01B9D00DDAD81 /* Resources */,
 				FA2DCE599221A61805A06ED1 /* [CP] Copy Pods Resources */,
+				8BEC291F1DD1968100611A6A /* Copy Files (1 item) */,
 			);
 			buildRules = (
 			);
