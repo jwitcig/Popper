@@ -14,7 +14,7 @@ PODS:
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.8)
-  - Game (1.0.1):
+  - Game (1.0.5):
     - SwiftTools
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
@@ -24,34 +24,45 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - iMessageTools (1.0.2):
     - SwiftTools
-  - SwiftTools (1.1.12)
+  - SwiftTools (1.1.13)
 
 DEPENDENCIES:
   - Firebase
-  - Game (from `~/Documents/projects/iOS-Game`)
-  - iMessageTools (from `~/Documents/projects/iMessageTools`)
-  - SwiftTools (from `~/Documents/projects/SwiftTools`)
+  - Game (from `https://github.com/jwitcig/iOS-Game`)
+  - iMessageTools (from `https://github.com/jwitcig/iMessageTools`)
+  - SwiftTools (from `https://github.com/jwitcig/SwiftTools`)
 
 EXTERNAL SOURCES:
   Game:
-    :path: "~/Documents/projects/iOS-Game"
+    :git: https://github.com/jwitcig/iOS-Game
   iMessageTools:
-    :path: "~/Documents/projects/iMessageTools"
+    :git: https://github.com/jwitcig/iMessageTools
   SwiftTools:
-    :path: "~/Documents/projects/SwiftTools"
+    :git: https://github.com/jwitcig/SwiftTools
+
+CHECKOUT OPTIONS:
+  Game:
+    :commit: 7c1586ade792bd43f3bfe142f4ece11d9cd7a4c3
+    :git: https://github.com/jwitcig/iOS-Game
+  iMessageTools:
+    :commit: d93f950f6061dbef56ee1189c4e4f6df7fb6e4bb
+    :git: https://github.com/jwitcig/iMessageTools
+  SwiftTools:
+    :commit: bd51e95ec58c141634bb5427fc0b83155efc62e6
+    :git: https://github.com/jwitcig/SwiftTools
 
 SPEC CHECKSUMS:
   Firebase: fdbecadb7b5cbef2774852d4fa659b9daf11f2af
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  Game: 358fce347cc18175b6eaba18ff2e07bcfc5c940b
+  Game: 0ae948f7d66fb4d65dc58a36b80a8b295bc8f0e9
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   iMessageTools: f64f38e3554d94863715a376891ae772237e6692
-  SwiftTools: 8a12185f8845c10097d3d31398c41c7ee26cb19f
+  SwiftTools: f5c247ae11e9c92322bd062feddebe13adf77539
 
-PODFILE CHECKSUM: 8ef40ebce71a2b67d07be9f183d16e325c281147
+PODFILE CHECKSUM: ad3346a8333805a13ee56932788376c7c295d621
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0.beta.1

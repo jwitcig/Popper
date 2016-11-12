@@ -27,14 +27,14 @@
     {
       "size" : "27x20",
       "idiom" : "universal",
-      "filename" : "iMessageIcon-54.png",
+      "filename" : "iMessage Icon - Small@2x.png",
       "scale" : "2x",
       "platform" : "ios"
     },
     {
       "size" : "27x20",
       "idiom" : "universal",
-      "filename" : "iMessageIcon-81.png",
+      "filename" : "iMessage Icon - Small@3x.png",
       "scale" : "3x",
       "platform" : "ios"
     },
