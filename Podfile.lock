@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
   Game:
     :git: https://github.com/jwitcig/iOS-Game
   iMessageTools:
-    :git: https://github.com/jwitcig/iMessageTools
+    :path: "~/Documents/projects/iMessageTools"
   SwiftTools:
     :git: https://github.com/jwitcig/SwiftTools
 

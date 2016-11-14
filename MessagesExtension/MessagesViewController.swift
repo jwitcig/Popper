@@ -20,7 +20,7 @@ infix operator |
 
 public protocol FirebaseConfigurable: class {
     var servicesFileName: String { get }
-    
+
     func configureFirebase()
 }
 
@@ -28,14 +28,14 @@ public extension FirebaseConfigurable {
     internal var bundle: Bundle {
         return Bundle(for: type(of: self) as AnyClass)
     }
-    
+
     internal var servicesFileName: String {
         return bundle.infoDictionary!["Google Services File"] as! String
     }
-    
+
     public func configureFirebase() {
         guard FIRApp.defaultApp() == nil else { return }
-    
+
         let options = FIROptions(contentsOfFile: bundle.path(forResource: servicesFileName, ofType: "plist"))!
         FIRApp.configure(with: options)
     }
@@ -45,17 +45,17 @@ public extension FirebaseConfigurable {
 
 class MessagesViewController: MSMessagesAppViewController {
     fileprivate var gameController: UIViewController?
-    
+
     var isAwaitingResponse = false
-    
+
     var messageCancelled = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureFirebase()
     }
-    
+
     override func willBecomeActive(with conversation: MSConversation) {
         if let message = conversation.selectedMessage {
             handleStarterEvent(message: message, conversation: conversation)
@@ -66,13 +66,13 @@ class MessagesViewController: MSMessagesAppViewController {
             gameController = controller
         }
     }
-    
+
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
         isAwaitingResponse = true
-        
+
         FIRAnalytics.logEvent(withName: "GameSent", parameters: [:])
     }
-    
+
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
         FIRAnalytics.logEvent(withName: "SendCancelled", parameters: [:])
 
@@ -89,14 +89,14 @@ extension MessagesViewController: iMessageCycle {
         if let controller = gameController {
             throwAway(controller: controller)
         }
-        
+
         guard !MSMessage.isFromCurrentDevice(message: message, conversation: conversation) else {
             showWaitingForOpponent()
             return
         }
-        
+
         isAwaitingResponse = false
-        
+
         let controller = createGameController(fromMessage: GeneralMessageReader(message: message))
         present(controller)
         controller.initiateGame()
@@ -118,7 +118,7 @@ extension MessagesViewController {
         ]
         return actionView
     }
-    
+
     fileprivate func showWaitingForOpponent() {
         let actionView = createActionView()
         actionView.buttonText = "Waiting For Opponent"
@@ -129,17 +129,8 @@ extension MessagesViewController {
         view.addSubview(actionView)
         actionView.reapplyConstraints()
     }
-    
+
     fileprivate func createGameController(fromMessage parser: MessageReader? = nil) -> GameViewController {
         return GameViewController(fromMessage: parser, messageSender: self, orientationManager: self)
-    }
-}
-
-extension MessagesViewController {
-    func configureFirebase() {
-        let currentBundle = Bundle(for: MessagesViewController.self)
-        let servicesFileName = currentBundle.infoDictionary!["Google Services File"] as! String
-        let options = FIROptions(contentsOfFile: currentBundle.path(forResource: servicesFileName, ofType: "plist"))!
-        FIRApp.configure(with: options)
     }
 }
