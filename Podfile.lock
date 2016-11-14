@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
   Game:
     :git: https://github.com/jwitcig/iOS-Game
   iMessageTools:
-    :git: https://github.com/jwitcig/iMessageTools
+    :path: "~/Documents/projects/iMessageTools"
   SwiftTools:
     :git: https://github.com/jwitcig/SwiftTools
 
@@ -61,6 +61,5 @@ SPEC CHECKSUMS:
   SwiftTools: 4de240f38e2fe29ae25ce544cca6dc62072fbc19
 
 PODFILE CHECKSUM: 97c993c880a5988875930a9353df142ea0f0270e
-
 
 COCOAPODS: 1.2.0.beta.1
