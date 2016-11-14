@@ -11,12 +11,12 @@ target 'MessagesExtension' do
   pod 'Firebase'
 
   pod 'SwiftTools', :git => 'https://github.com/jwitcig/SwiftTools'
-  pod 'iMessageTools', :git => 'https://github.com/jwitcig/iMessageTools'
+  # pod 'iMessageTools', :git => 'https://github.com/jwitcig/iMessageTools'
   pod 'Game', :git => 'https://github.com/jwitcig/iOS-Game'
 
   # local development
   # pod 'SwiftTools', :path => '~/Documents/projects/SwiftTools'
-  # pod 'iMessageTools', :path => '~/Documents/projects/iMessageTools'
+  pod 'iMessageTools', :path => '~/Documents/projects/iMessageTools'
   # pod 'Game', :path => '~/Documents/projects/iOS-Game'
 
   post_install do |installer|

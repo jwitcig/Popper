@@ -18,7 +18,32 @@ import SwiftTools
 
 infix operator |
 
-class MessagesViewController: MSMessagesAppViewController, MessageSender {
+public protocol FirebaseConfigurable: class {
+    var servicesFileName: String { get }
+    
+    func configureFirebase()
+}
+
+public extension FirebaseConfigurable {
+    internal var bundle: Bundle {
+        return Bundle(for: type(of: self) as AnyClass)
+    }
+    
+    internal var servicesFileName: String {
+        return bundle.infoDictionary!["Google Services File"] as! String
+    }
+    
+    public func configureFirebase() {
+        guard FIRApp.defaultApp() == nil else { return }
+    
+        let options = FIROptions(contentsOfFile: bundle.path(forResource: servicesFileName, ofType: "plist"))!
+        FIRApp.configure(with: options)
+    }
+}
+
+
+
+class MessagesViewController: MSMessagesAppViewController {
     fileprivate var gameController: UIViewController?
     
     var isAwaitingResponse = false
@@ -35,16 +60,11 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
         if let message = conversation.selectedMessage {
             handleStarterEvent(message: message, conversation: conversation)
         } else {
-            let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self)
+            let controller = createGameController()
             present(controller)
             controller.initiateGame()
             gameController = controller
         }
-    }
-    
-    override func didSelect(_ message: MSMessage, conversation: MSConversation) {
-        guard message != nil else { return } // potential Xcode bug, message might come thru as nil
-        handleStarterEvent(message: message, conversation: conversation)
     }
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
@@ -62,39 +82,30 @@ class MessagesViewController: MSMessagesAppViewController, MessageSender {
             throwAway(controller: controller)
         }
     }
-    
-    override func willTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
-        switch presentationStyle {
-        case .compact:
-            break
-        case .expanded:
-            break
-        }
-    }
-    
+}
+
+extension MessagesViewController: iMessageCycle {
     func handleStarterEvent(message: MSMessage, conversation: MSConversation) {
-        guard !MSMessage.isFromCurrentDevice(message: message,
-                                        conversation: conversation) else {
-            if let controller = gameController {
-                throwAway(controller: controller)
-            }
+        if let controller = gameController {
+            throwAway(controller: controller)
+        }
+        
+        guard !MSMessage.isFromCurrentDevice(message: message, conversation: conversation) else {
             showWaitingForOpponent()
             return
         }
         
         isAwaitingResponse = false
         
-        let parser = GeneralMessageReader(message: message)
-        
-        if let controller = gameController {
-            throwAway(controller: controller)
-        }
-        let controller = createGameController(ofType: Popper.self, type: PopperScene.self, other: PopperSession.self, fromMessage: parser)
+        let controller = createGameController(fromMessage: GeneralMessageReader(message: message))
         present(controller)
         controller.initiateGame()
         gameController = controller
     }
 }
+
+extension MessagesViewController: MessageSender { }
+extension MessagesViewController: FirebaseConfigurable { }
 
 extension MessagesViewController {
     func createActionView(action: GameAction? = nil) -> ActionView {
@@ -119,27 +130,7 @@ extension MessagesViewController {
         actionView.reapplyConstraints()
     }
     
-    fileprivate func createGameController<G, S, U>(ofType _: G.Type,
-                                          type: S.Type,
-                                          other: U.Type,
-                                        fromMessage parser: MessageReader? = nil)
-        -> GameViewController<G, S, U> where
-        G: TypeConstraint,
-        U: SessionType & StringDictionaryRepresentable & Messageable,
-        U.InitialData: StringDictionaryRepresentable,
-        U.InstanceData: StringDictionaryRepresentable,
-        G: SingleScene,
-        S: SKScene,
-        S: GameScene {
-        return GameViewController<G, S, U>(fromMessage: parser, messageSender: self, orientationManager: self)
-    }
-}
-
-extension MessagesViewController {
-    func configureFirebase() {
-        let currentBundle = Bundle(for: MessagesViewController.self)
-        let servicesFileName = currentBundle.infoDictionary!["Google Services File"] as! String
-        let options = FIROptions(contentsOfFile: currentBundle.path(forResource: servicesFileName, ofType: "plist"))!
-        FIRApp.configure(with: options)
+    fileprivate func createGameController(fromMessage parser: MessageReader? = nil) -> GameViewController {
+        return GameViewController(fromMessage: parser, messageSender: self, orientationManager: self)
     }
 }

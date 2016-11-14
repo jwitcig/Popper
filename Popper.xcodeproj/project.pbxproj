@@ -152,9 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				8BDC3FF61DD6CC0B00297194 /* MessagesExtension.entitlements */,
-				8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */,
 				8BEC291B1DD1772C00611A6A /* GoogleService-Info-Dev.plist */,
 				8BEC291D1DD17DBD00611A6A /* GoogleService-Info.plist */,
+				8B0335101DC01B9D00DDAD81 /* MessagesViewController.swift */,
 				8BB25FED1DC28A7800328342 /* GameViewController.swift */,
 				8B26663D1DCACC8F004B953C /* GameViewController.xib */,
 				8B447F651DC15FF400C46BCD /* Popper.swift */,
