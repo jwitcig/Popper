@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
+		<key>MessagesExtension-Dev.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>MessagesExtension.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
